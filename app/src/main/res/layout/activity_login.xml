@@ -51,7 +51,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -84,7 +84,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Forget Password?"
+            android:text="Forgot Password?"
             android:textColor="@color/cerulean"
             android:layout_gravity="end"
             android:elevation="0dp"

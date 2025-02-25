@@ -37,5 +37,17 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Find the "Forgot Password" button
+        Button forgotBtn = findViewById(R.id.forgotBtn);
+
+        // Set click listener to go to SignUp page
+        forgotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, ForgotPasswordEmail.class);
+                startActivity(intent);
+            }
+        });
     }
 }
