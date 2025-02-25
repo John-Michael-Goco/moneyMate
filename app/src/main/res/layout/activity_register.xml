@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
             android:text="Welcome!"
             android:textAlignment="center"
@@ -38,10 +39,11 @@
             android:id="@+id/slogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start your finance journey"
-            android:textSize="18sp"
+            android:fontFamily="@font/poppins"
             android:gravity="center"
-            android:textAlignment="center" />
+            android:text="Start your finance journey"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +63,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +78,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -89,7 +93,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -106,6 +111,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,23 +133,25 @@
                 android:id="@+id/signUpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
-                android:backgroundTint="@color/eerie_black"
-                android:textColor="@color/white"
-                android:padding="13dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="25dp" />
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/eerie_black"
+                android:fontFamily="@font/inter_medium"
+                android:padding="13dp"
+                android:text="Sign Up"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/signInBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Already have an account? Sign In"
-                android:textColor="@color/cerulean"
                 android:layout_gravity="end"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
                 android:elevation="0dp"
-                android:layout_margin="5dp" />
+                android:fontFamily="@font/inter_medium"
+                android:text="Already have an account? Sign In"
+                android:textColor="@color/cerulean" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
