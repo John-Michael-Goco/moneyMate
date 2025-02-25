@@ -27,14 +27,26 @@ public class ForgotPasswordEmail extends AppCompatActivity {
             return insets;
         });
 
-        // Find the "Sign Up" button
+        // Find the "Back" image
         ImageView backBtn = findViewById(R.id.backBtn);
 
-        // Set click listener to go to SignUp page
+        // Set click listener to go to Login page
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ForgotPasswordEmail.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+        // Find the "Send Code" button
+        Button sendBtn = findViewById(R.id.sendBtn);
+
+        // Set click listener to go to next page
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForgotPasswordEmail.this, ForgotPasswordCode.class);
                 startActivity(intent);
             }
         });
