@@ -15,7 +15,7 @@
         android:padding="20dp"
         android:paddingBottom="20dp"
         android:gravity="center_horizontal"
-        tools:context=".Login">
+        tools:context=".auth.Login">
 
     <ImageView
         android:id="@+id/logoImage"

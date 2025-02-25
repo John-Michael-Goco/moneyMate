@@ -1,4 +1,4 @@
-package com.moneymate;
+package com.moneymate.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +11,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Register extends AppCompatActivity {
+import com.moneymate.R;
+
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
 
         // Handle system insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -27,13 +29,25 @@ public class Register extends AppCompatActivity {
         });
 
         // Find the "Sign Up" button
-        Button signUpButton = findViewById(R.id.signInBtn);
+        Button signUpButton = findViewById(R.id.signUpBtn);
 
         // Set click listener to go to SignUp page
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+            }
+        });
+
+        // Find the "Forgot Password" button
+        Button forgotBtn = findViewById(R.id.forgotBtn);
+
+        // Set click listener to go to ForgotPasswordEmail page
+        forgotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, ForgotPasswordEmail.class);
                 startActivity(intent);
             }
         });

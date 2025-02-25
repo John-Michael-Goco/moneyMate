@@ -1,9 +1,10 @@
-package com.moneymate;
+package com.moneymate.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,13 +12,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Login extends AppCompatActivity {
+import com.moneymate.R;
+
+public class ForgotPasswordCode extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_forgot_password_code);
 
         // Handle system insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -26,26 +29,26 @@ public class Login extends AppCompatActivity {
             return insets;
         });
 
-        // Find the "Sign Up" button
-        Button signUpButton = findViewById(R.id.signUpBtn);
+        // Find the "Back" image
+        ImageView backBtn = findViewById(R.id.backBtn);
 
-        // Set click listener to go to SignUp page
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        // Set click listener to go to Login page
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, Register.class);
+                Intent intent = new Intent(ForgotPasswordCode.this, ForgotPasswordEmail.class);
                 startActivity(intent);
             }
         });
 
-        // Find the "Forgot Password" button
-        Button forgotBtn = findViewById(R.id.forgotBtn);
+        // Find the "Send Code" button
+        Button confirmBtn = findViewById(R.id.confirmBtn);
 
-        // Set click listener to go to SignUp page
-        forgotBtn.setOnClickListener(new View.OnClickListener() {
+        // Set click listener to go to next page
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this, ForgotPasswordEmail.class);
+                Intent intent = new Intent(ForgotPasswordCode.this, NewPassword.class);
                 startActivity(intent);
             }
         });

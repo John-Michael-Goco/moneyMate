@@ -1,4 +1,4 @@
-package com.moneymate;
+package com.moneymate.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +12,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ForgotPasswordCode extends AppCompatActivity {
+import com.moneymate.R;
+
+public class ForgotPasswordEmail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_forgot_password_code);
+        setContentView(R.layout.activity_forgot_password_email);
 
         // Handle system insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -34,19 +36,19 @@ public class ForgotPasswordCode extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ForgotPasswordCode.this, ForgotPasswordEmail.class);
+                Intent intent = new Intent(ForgotPasswordEmail.this, Login.class);
                 startActivity(intent);
             }
         });
 
         // Find the "Send Code" button
-        Button confirmBtn = findViewById(R.id.confirmBtn);
+        Button sendBtn = findViewById(R.id.sendBtn);
 
         // Set click listener to go to next page
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
+        sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ForgotPasswordCode.this, NewPassword.class);
+                Intent intent = new Intent(ForgotPasswordEmail.this, ForgotPasswordCode.class);
                 startActivity(intent);
             }
         });
