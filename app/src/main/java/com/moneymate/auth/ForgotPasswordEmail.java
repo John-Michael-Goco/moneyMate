@@ -44,7 +44,7 @@ public class ForgotPasswordEmail extends AppCompatActivity {
         // Find the "Send Code" button
         Button sendBtn = findViewById(R.id.sendBtn);
 
-        // Set click listener to go to next page
+        // Set click listener to go to ForgotPasswordCode page
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

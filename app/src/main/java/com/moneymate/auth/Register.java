@@ -28,11 +28,11 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
-        // Find the "Sign Up" button
-        Button signUpButton = findViewById(R.id.signInBtn);
+        // Find the "Sign In" button
+        Button signInBtn = findViewById(R.id.signInBtn);
 
-        // Set click listener to go to SignUp page
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        // Set click listener to go to SignIn page
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Register.this, Login.class);
@@ -40,10 +40,10 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        // Find the "" button
+        // Find the "Sign Up" button
         Button signUpBtn = findViewById(R.id.signUpBtn);
 
-        // Set click listener to go to SignUp page
+        // Set click listener to go to SignIn page
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

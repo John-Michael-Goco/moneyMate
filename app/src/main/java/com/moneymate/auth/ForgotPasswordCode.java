@@ -44,7 +44,7 @@ public class ForgotPasswordCode extends AppCompatActivity {
         // Find the "Send Code" button
         Button confirmBtn = findViewById(R.id.confirmBtn);
 
-        // Set click listener to go to next page
+        // Set click listener to go to NewPassword page
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
