@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="eerie_black">#222222</color>
+    <color name="white">#FFFFFF</color>
+    <color name="satin_gold">#CCA43B</color>
+    <color name="cerulean">#0C7489</color>
+    <color name="mint">#5CAB7D</color>
+
+<!--
+Color Palette
+
+222222 - Eerie Black
+FFFFFF - White
+CCA43B - Satin Sheen Gold
+0C7489 - Cerulean
+5CAB7D - Mint
+
+-->
+
 </resources>
