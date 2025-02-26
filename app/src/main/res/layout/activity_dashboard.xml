@@ -25,9 +25,11 @@
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="selected"
         app:itemIconTint="@color/cerulean"
-        app:itemIconSize="32dp"
+        app:itemIconSize="30dp"
         app:itemTextColor="@color/cerulean"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:itemTextAppearanceActive="@style/BottomNavTextActive"/>
+        app:itemActiveIndicatorStyle="@null"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemTextAppearanceActive="@style/BottomNavTextActive"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

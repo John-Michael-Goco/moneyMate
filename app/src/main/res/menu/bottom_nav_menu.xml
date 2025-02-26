@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Home"
-        android:id="@+id/menuHome"
-        android:icon="@drawable/home_circle"/>
+        android:icon="@drawable/home_selector"
+        android:id="@+id/menuHome" />
     <item android:title="Transactions"
-        android:icon="@drawable/clipboard_list"
+        android:icon="@drawable/transaction_selector"
         android:id="@+id/menuTransactions"/>
     <item android:title="Goals"
-        android:icon="@drawable/bullseye"
+        android:icon="@drawable/goal_selector"
         android:id="@+id/menuGoals"/>
     <item android:title="Report"
-        android:icon="@drawable/finance"
+        android:icon="@drawable/report_selector"
         android:id="@+id/menuReport"/>
     <item android:title="Account"
-        android:icon="@drawable/account"
+        android:icon="@drawable/account_selector"
         android:id="@+id/menuProfile"/>
 
 </menu>
