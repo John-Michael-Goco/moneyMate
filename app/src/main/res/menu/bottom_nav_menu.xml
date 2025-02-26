@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:id="@+id/menuHome"
+        android:icon="@drawable/home_circle"/>
+    <item android:title="Transactions"
+        android:icon="@drawable/clipboard_list"
+        android:id="@+id/menuTransactions"/>
+    <item android:title="Goals"
+        android:icon="@drawable/bullseye"
+        android:id="@+id/menuGoals"/>
+    <item android:title="Report"
+        android:icon="@drawable/finance"
+        android:id="@+id/menuReport"/>
+    <item android:title="Account"
+        android:icon="@drawable/account"
+        android:id="@+id/menuProfile"/>
+
+</menu>

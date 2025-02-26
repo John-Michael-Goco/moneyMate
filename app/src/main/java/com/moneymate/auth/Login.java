@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.moneymate.R;
+import com.moneymate.dashboard.Dashboard;
 
 public class Login extends AppCompatActivity {
 
@@ -48,6 +49,18 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, ForgotPasswordEmail.class);
+                startActivity(intent);
+            }
+        });
+
+        // Find the "Forgot Password" button
+        Button loginBtn = findViewById(R.id.loginBtn);
+
+        // Set click listener to go to ForgotPasswordEmail page
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Dashboard.class);
                 startActivity(intent);
             }
         });
