@@ -4,10 +4,10 @@
     <item android:title="Home"
         android:icon="@drawable/home_selector"
         android:id="@+id/menuHome" />
-    <item android:title="Transactions"
+    <item android:title="Expenses"
         android:icon="@drawable/transaction_selector"
         android:id="@+id/menuTransactions"/>
-    <item android:title="Goals"
+    <item android:title="Budgets"
         android:icon="@drawable/goal_selector"
         android:id="@+id/menuGoals"/>
     <item android:title="Report"
@@ -16,5 +16,4 @@
     <item android:title="Account"
         android:icon="@drawable/account_selector"
         android:id="@+id/menuProfile"/>
-
 </menu>
