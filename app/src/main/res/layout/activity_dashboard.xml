@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:paddingBottom="0dp"
+        android:background="@drawable/bottom_nav_background"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="selected"
         app:itemIconTint="@color/cerulean"

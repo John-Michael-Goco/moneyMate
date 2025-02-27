@@ -53,15 +53,16 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        // Find the "Forgot Password" button
+        // Find the "Login" button
         Button loginBtn = findViewById(R.id.loginBtn);
 
-        // Set click listener to go to ForgotPasswordEmail page
+        // Set click listener to go to Dashboard page
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Dashboard.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
