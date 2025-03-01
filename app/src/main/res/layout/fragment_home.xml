@@ -36,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -64,7 +64,8 @@
                             android:textColor="@color/grey"
                             android:textStyle="bold"
                             android:layout_weight="1"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:layout_marginLeft="20dp"/>
 
                         <!-- Accounts Button-->
                         <ImageView
@@ -150,8 +151,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -177,7 +178,8 @@
                             android:textColor="@color/grey"
                             android:textStyle="bold"
                             android:layout_weight="1"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:layout_marginLeft="19dp"/>
 
                         <!-- Image Button-->
                         <ImageView
@@ -206,8 +208,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -228,12 +230,13 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Bills"
+                            android:text="Expenses"
                             android:textSize="16sp"
                             android:textColor="@color/grey"
                             android:textStyle="bold"
                             android:layout_weight="1"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:layout_marginLeft="16dp"/>
 
                         <!-- Expenses Button-->
                         <ImageView
@@ -262,8 +265,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -290,7 +293,8 @@
                             android:textColor="@color/grey"
                             android:textStyle="bold"
                             android:layout_weight="1"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:layout_marginLeft="17dp"/>
 
                         <!-- Budget Button-->
                         <ImageView
@@ -345,8 +349,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -372,7 +376,8 @@
                             android:textColor="@color/grey"
                             android:textStyle="bold"
                             android:layout_weight="1"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:layout_marginLeft="17dp"/>
 
                         <!-- Goals Button-->
                         <ImageView
@@ -404,8 +409,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -424,7 +429,7 @@
                         android:textSize="16sp"
                         android:textColor="@color/grey"
                         android:textStyle="bold"
-                        android:layout_marginBottom="9dp"/>
+                        android:layout_marginBottom="9dp" />
 
                     <ImageView
                         android:layout_width="70dp"
