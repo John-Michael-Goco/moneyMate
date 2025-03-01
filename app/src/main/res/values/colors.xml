@@ -5,16 +5,6 @@
     <color name="satin_gold">#CCA43B</color>
     <color name="cerulean">#0C7489</color>
     <color name="light_green">#43b14b</color>
-
-<!--
-Color Palette
-
-222222 - Eerie Black
-FFFFFF - White
-CCA43B - Satin Sheen Gold
-0C7489 - Cerulean
-5CAB7D - Mint
-
--->
+    <color name="grey">#404240</color>
 
 </resources>

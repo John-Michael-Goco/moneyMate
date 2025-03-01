@@ -1,66 +1,148 @@
 package com.moneymate.dashboard;
 
+import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.moneymate.R;
+import com.moneymate.dashboard.GoalAdapter;
+import com.moneymate.dashboard.Goal;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Initialize ProgressBar and TextView
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        TextView progressText = view.findViewById(R.id.progressText);
+        TextView progressPercentage = view.findViewById(R.id.progressPercentage);
+
+        // Set progress value
+        int progressValue = 120;
+        int maxValue = 1000;
+        progressBar.setMax(maxValue);
+        progressBar.setProgress(progressValue);
+
+        // Calculate percentage
+        int percentage = (int) ((progressValue / (float) maxValue) * 100);
+
+        // Set text overlay
+        progressPercentage.setText(String.valueOf(percentage) + "%");
+        progressText.setText("P " + progressValue + " of P " + maxValue);
+
+        // Initialize and configure the first PieChart (Bills)
+        PieChart billsChart = view.findViewById(R.id.donut_chart);
+        setupPieChart(billsChart, "Bills", new float[]{20f, 20f, 20f, 20f, 20f},
+                new String[]{"Expenses", "Income", "Expenses", "Income", "Expenses"},
+                new String[]{"#9C27B0", "#FFC107", "#795548", "#607D8B", "#8BC34A"});
+
+        // Initialize and configure the second PieChart (Expenses)
+        PieChart expensesChart = view.findViewById(R.id.donut_chart_expenses);
+        setupPieChart(expensesChart, "Expenses", new float[]{40f, 25f, 15f, 15f, 5f},
+                new String[]{"Rent", "Food", "Entertainment", "Transport", "Others"},
+                new String[]{"#FF4081", "#3F51B5", "#FFA000", "#4CAF50", "#00BCD4"});
+
+        // Initialize RecyclerView
+        RecyclerView recyclerView = view.findViewById(R.id.goalsRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Sample data for goals
+        List<Goal> goalList = new ArrayList<>();
+        goalList.add(new Goal("Save for a vacation"));
+        goalList.add(new Goal("Buy a new laptop"));
+        goalList.add(new Goal("Pay off credit card"));
+        goalList.add(new Goal("Emergency fund"));
+
+        // Set up adapter
+        GoalAdapter adapter = new GoalAdapter(goalList, goal -> {
+            // Handle goal click
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Configures a PieChart with custom data, colors, and appearance settings.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @param pieChart   The PieChart to be configured.
+     * @param centerText The text displayed in the center of the PieChart.
+     * @param values     The values for each PieChart slice.
+     * @param labels     The labels for each slice.
+     * @param colorsHex  The colors for each slice in hex format.
      */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//  For Charts
+    private void setupPieChart(PieChart pieChart, String centerText, float[] values, String[] labels, String[] colorsHex) {
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        for (int i = 0; i < values.length; i++) {
+            entries.add(new PieEntry(values[i], labels[i]));
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        // Convert color hex codes to integer color values
+        int[] colors = new int[colorsHex.length];
+        for (int i = 0; i < colorsHex.length; i++) {
+            colors[i] = Color.parseColor(colorsHex[i]);
+        }
+
+        // Configure PieDataSet
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(colors);
+        dataSet.setSliceSpace(2f);
+        dataSet.setDrawValues(false);
+
+        // Create PieData and set it to the PieChart
+        PieData pieData = new PieData(dataSet);
+        pieChart.setUsePercentValues(true);
+        pieChart.setData(pieData);
+
+        // Configure PieChart appearance
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleRadius(50f);
+        pieChart.setTransparentCircleRadius(60f);
+        pieChart.setTransparentCircleColor(Color.parseColor("#1AFFFFFF"));
+        pieChart.setCenterText(centerText);
+        pieChart.setCenterTextSize(20f);
+        pieChart.setCenterTextColor(Color.parseColor("#FFFFFF"));
+
+        // Hide entry labels and disable description
+        pieChart.setDrawEntryLabels(false);
+        pieChart.getDescription().setEnabled(false);
+
+        // Configure legend
+        Legend legend = pieChart.getLegend();
+        legend.setEnabled(true);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setDrawInside(false);
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.BLACK);
+
+        // Animate the chart
+        pieChart.animateY(1500);
     }
 }

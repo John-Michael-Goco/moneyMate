@@ -26,16 +26,16 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins"
                 android:text="Good Morning, User!"
-                android:textColor="@color/eerie_black"
+                android:textColor="@color/grey"
                 android:textSize="26sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-            <!-- Net Worth Main CardView -->
+            <!-- Net Worth CardView -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:cardCornerRadius="20dp"
@@ -46,117 +46,110 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:background="@drawable/networth_background">
 
-                    <!-- Net Worth Text -->
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Net Worth"
-                        android:textSize="16sp"
-                        android:textColor="@color/eerie_black"
-                        android:textStyle="bold"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="P100,000"
-                        android:textSize="24sp"
-                        android:textColor="@color/eerie_black"
-                        android:textStyle="bold"/>
+                        <!-- Accounts Text -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Accounts"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:gravity="center" />
 
-                    <!-- Savings and Expenses Cardviews -->
+                        <!-- Accounts Button-->
+                        <ImageView
+                            android:id="@+id/goAccounts"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/arrow_right"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground" />
+                    </LinearLayout>
+
+                    <!-- Networth and Accounts Text -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center"
-                        android:paddingTop="10dp">
+                        android:paddingTop="20dp"
+                        android:paddingBottom="18dp">
 
-                        <!-- Savings Small Card -->
-                        <androidx.cardview.widget.CardView
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="120dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
+                            android:orientation="vertical"
+                            android:gravity="center">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="12dp">
+                            <!-- Net Worth Text -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:text="Net Worth"
+                                android:textColor="@color/grey"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Savings"
-                                    android:textSize="16sp"
-                                    android:textColor="@color/eerie_black"
-                                    android:textStyle="bold"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:text="P100,000"
+                                android:textColor="@color/grey"
+                                android:textSize="22sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="10dp"/>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="P10,000"
-                                    android:textSize="24sp"
-                                    android:textColor="@color/eerie_black"
-                                    android:textStyle="bold"/>
+                        </LinearLayout>
 
-                            </LinearLayout>
+                        <!-- Vertical Divider -->
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/grey"
+                            android:layout_marginHorizontal="15dp"/>
 
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Expenses Small Card -->
-                        <androidx.cardview.widget.CardView
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="120dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="8dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="4dp">
+                            android:orientation="vertical"
+                            android:gravity="center">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:text="4 Accounts"
+                                android:textColor="@color/grey"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Expenses"
-                                    android:textSize="16sp"
-                                    android:textColor="@color/eerie_black"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="P5,000"
-                                    android:textSize="24sp"
-                                    android:textColor="@color/eerie_black"
-                                    android:textStyle="bold"/>
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
 
-            <!-- Budget Card View-->
+            <!-- Bills Card View-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:cardCornerRadius="20dp"
@@ -169,14 +162,39 @@
                     android:gravity="center"
                     android:padding="16dp">
 
-                    <!-- Net Worth Text -->
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Budget"
-                        android:textSize="16sp"
-                        android:textColor="@color/eerie_black"
-                        android:textStyle="bold"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <!-- Bills Text -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Bills"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <!-- Image Button-->
+                        <ImageView
+                            android:id="@+id/goBills"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/arrow_right"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground" />
+                    </LinearLayout>
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/donut_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="5dp" />
 
                 </LinearLayout>
 
@@ -187,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:cardCornerRadius="20dp"
@@ -200,14 +218,122 @@
                     android:gravity="center"
                     android:padding="16dp">
 
-                    <!-- Net Worth Text -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <!-- Expenses Text -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Bills"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <!-- Expenses Button-->
+                        <ImageView
+                            android:id="@+id/goExpenses"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/arrow_right"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground" />
+                    </LinearLayout>
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/donut_chart_expenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Budget Card View-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <!-- Budget Text -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Budget"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <!-- Budget Button-->
+                        <ImageView
+                            android:id="@+id/goBudget"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/arrow_right"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground" />
+                    </LinearLayout>
+
+                    <!-- Progress Percentage Overlay -->
                     <TextView
+                        android:id="@+id/progressPercentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="75%"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:progressDrawable="@drawable/progress_bar_design"
+                        android:max="100"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"/>
+
+                    <!-- Progress Text Overlay -->
+                    <TextView
+                        android:id="@+id/progressText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Expences"
+                        android:text="750 of 1000"
                         android:textSize="16sp"
-                        android:textColor="@color/eerie_black"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="@color/grey"
+                        android:layout_centerInParent="true"/>
 
                 </LinearLayout>
 
@@ -218,7 +344,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:cardCornerRadius="20dp"
@@ -231,14 +357,42 @@
                     android:gravity="center"
                     android:padding="16dp">
 
-                    <!-- Net Worth Text -->
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Goals"
-                        android:textSize="16sp"
-                        android:textColor="@color/eerie_black"
-                        android:textStyle="bold"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <!-- Goals Text -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Goals"
+                            android:textSize="16sp"
+                            android:textColor="@color/grey"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:gravity="center" />
+
+                        <!-- Goals Button-->
+                        <ImageView
+                            android:id="@+id/goGoals"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/arrow_right"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/goalsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"/>
 
                 </LinearLayout>
 
@@ -262,19 +416,33 @@
                     android:gravity="center"
                     android:padding="16dp">
 
-                    <!-- Net Worth Text -->
+                    <!-- Monthly Reports Text -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Monthly Report"
+                        android:text="Monthly Reports"
                         android:textSize="16sp"
-                        android:textColor="@color/eerie_black"
+                        android:textColor="@color/grey"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="9dp"/>
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/download_reports_logo"
+                        android:layout_marginBottom="12dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Download PDF Report"
+                        android:textSize="14sp"
+                        android:textColor="@color/cerulean"
                         android:textStyle="bold"/>
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
 
         </LinearLayout>
 
