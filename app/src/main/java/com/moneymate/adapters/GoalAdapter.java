@@ -1,4 +1,4 @@
-package com.moneymate.dashboard;
+package com.moneymate.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moneymate.R;
-import com.moneymate.dashboard.Goal;
+import com.moneymate.models.Goal;
 
 import java.util.List;
 

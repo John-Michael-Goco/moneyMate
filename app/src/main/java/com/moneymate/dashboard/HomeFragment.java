@@ -18,8 +18,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.moneymate.R;
-import com.moneymate.dashboard.GoalAdapter;
-import com.moneymate.dashboard.Goal;
+import com.moneymate.adapters.GoalAdapter;
+import com.moneymate.models.Goal;
 
 import java.util.ArrayList;
 import java.util.List;

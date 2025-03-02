@@ -50,14 +50,14 @@ public class Dashboard extends AppCompatActivity {
 
                 if(id == R.id.menuHome){
                     fragmentSelected = new HomeFragment();
-                } else if(id == R.id.menuTransactions){
+                }else if(id == R.id.menuBills){
+                    fragmentSelected = new BillsFragment();
+                }  else if(id == R.id.menuTransactions){
                     fragmentSelected = new TransactionFragment();
-                } else if(id == R.id.menuGoals){
-                    fragmentSelected = new GoalsFragment();
-                } else if(id == R.id.menuReport){
-                    fragmentSelected = new ReportFragment();
-                } else if(id == R.id.menuProfile){
-                    fragmentSelected = new ProfileFragment();
+                } else if(id == R.id.menuBudget){
+                    fragmentSelected = new BudgetFragment();
+                } else if(id == R.id.menuAccount){
+                    fragmentSelected = new AccountFragment();
                 }
 
                 // Replace the current fragment with the new one

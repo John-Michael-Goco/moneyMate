@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cerulean"
-    tools:context=".dashboard.ReportFragment">
+    tools:context=".dashboard.BudgetFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Report"
+        android:text="Budget"
         android:textSize="30sp"
         android:textColor="@color/eerie_black"
         android:layout_gravity="center"/>

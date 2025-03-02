@@ -4,16 +4,16 @@
     <item android:title="Home"
         android:icon="@drawable/home_selector"
         android:id="@+id/menuHome" />
-    <item android:title="Expenses"
+    <item android:title="Bills"
         android:icon="@drawable/transaction_selector"
-        android:id="@+id/menuTransactions"/>
-    <item android:title="Budgets"
-        android:icon="@drawable/goal_selector"
-        android:id="@+id/menuGoals"/>
-    <item android:title="Report"
+        android:id="@+id/menuBills"/>
+    <item android:title="Transactions"
         android:icon="@drawable/report_selector"
-        android:id="@+id/menuReport"/>
+        android:id="@+id/menuTransactions"/>
+    <item android:title="Budget"
+        android:icon="@drawable/goal_selector"
+        android:id="@+id/menuBudget"/>
     <item android:title="Account"
         android:icon="@drawable/account_selector"
-        android:id="@+id/menuProfile"/>
+        android:id="@+id/menuAccount"/>
 </menu>

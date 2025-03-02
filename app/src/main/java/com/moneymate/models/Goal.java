@@ -1,4 +1,4 @@
-package com.moneymate.dashboard;
+package com.moneymate.models;
 
 public class Goal {
     private String title;

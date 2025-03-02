@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".dashboard.HomeFragment">
+    tools:context=".dashboard.Dashboard">
 
     <!-- Scrollable Layout -->
     <ScrollView
@@ -73,8 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -97,7 +97,7 @@
                         android:gravity="center" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/cashRecyclerView"
+                        android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -140,7 +140,6 @@
                         android:gravity="center" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/creditRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -183,7 +182,6 @@
                         android:gravity="center" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/investmentRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
