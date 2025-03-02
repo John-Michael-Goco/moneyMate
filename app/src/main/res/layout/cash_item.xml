@@ -14,7 +14,7 @@
 
         <!-- Logo Image -->
         <ImageView
-            android:id="@+id/accountLogo"
+            android:id="@+id/cashAccountLogo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/logo"
@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/accountTitle"
+                android:id="@+id/cashAccountTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -36,7 +36,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/amountText"
+                android:id="@+id/cashAmountText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₱0.00"
@@ -47,7 +47,7 @@
 
         <!-- Image Button -->
         <ImageButton
-            android:id="@+id/actionButton"
+            android:id="@+id/cashActionButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/arrow_right"

@@ -1,66 +1,94 @@
 package com.moneymate.dashboard;
 
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.moneymate.R;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AccountFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.moneymate.adapters.CashAdapter;
+import com.moneymate.models.CashModel;
+import com.moneymate.adapters.CreditAdapter;
+import com.moneymate.models.CreditModel;
+import com.moneymate.adapters.InvestmentAdapter;
+import com.moneymate.models.InvestmentModel;
+
 public class AccountFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView cashRecyclerView, creditRecyclerView, investmentRecyclerView;
+    private CashAdapter cashAdapter;
+    private CreditAdapter creditAdapter;
+    private InvestmentAdapter investmentAdapter;
+    private List<CashModel> cashAccountList;
+    private List<CreditModel> creditAccountList;
+    private List<InvestmentModel> investmentAccountList;
 
     public AccountFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccountFragment newInstance(String param1, String param2) {
-        AccountFragment fragment = new AccountFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_account, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Initialize Cash Accounts RecyclerView
+        cashRecyclerView = view.findViewById(R.id.cashRecyclerView);
+        cashRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        cashAccountList = new ArrayList<>();
+        loadCashSampleData();
+
+        cashAdapter = new CashAdapter(cashAccountList);
+        cashRecyclerView.setAdapter(cashAdapter);
+
+        // Initialize Credit Accounts RecyclerView
+        creditRecyclerView = view.findViewById(R.id.creditRecyclerView);
+        creditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        creditAccountList = new ArrayList<>();
+        loadCreditSampleData();
+
+        creditAdapter = new CreditAdapter(creditAccountList);
+        creditRecyclerView.setAdapter(creditAdapter);
+
+        // Initialize Investment Accounts RecyclerView
+        investmentRecyclerView = view.findViewById(R.id.investmentRecyclerView);
+        investmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        investmentAccountList = new ArrayList<>();
+        loadInvestmentSampleData();
+
+        investmentAdapter = new InvestmentAdapter(investmentAccountList);
+        investmentRecyclerView.setAdapter(investmentAdapter);
+    }
+
+    private void loadCashSampleData() {
+        cashAccountList.add(new CashModel(R.drawable.logo, "Savings Account", "₱10,000"));
+        cashAccountList.add(new CashModel(R.drawable.logo, "Checking Account", "₱5,500"));
+        cashAccountList.add(new CashModel(R.drawable.logo, "Cash on Hand", "₱2,000"));
+    }
+
+    private void loadCreditSampleData() {
+        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 1", "₱-12,000"));
+        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 2", "₱-8,500"));
+        creditAccountList.add(new CreditModel(R.drawable.logo, "Personal Loan", "₱-25,000"));
+    }
+
+    private void loadInvestmentSampleData() {  // Corrected function
+        investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Stocks", "₱50,000"));
+        investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Mutual Funds", "₱30,000"));
+        investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Real Estate", "₱150,000"));
     }
 }

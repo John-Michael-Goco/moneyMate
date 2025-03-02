@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.moneymate.R;
 import com.moneymate.adapters.GoalAdapter;
 import com.moneymate.models.Goal;
@@ -82,6 +85,23 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        // Get reference to BottomNavigationView
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+
+        // Find buttons
+        ImageView goAccounts = view.findViewById(R.id.goAccounts);
+        ImageView goBills = view.findViewById(R.id.goBills);
+        ImageView goTransactions = view.findViewById(R.id.goExpenses);
+        ImageView goBudget = view.findViewById(R.id.goBudget);
+        ImageView goGoals = view.findViewById(R.id.goGoals);
+
+        // Set click listeners for each button
+        goAccounts.setOnClickListener(v -> navigateToFragment(new AccountFragment(), R.id.menuAccount, bottomNavigationView));
+        goBills.setOnClickListener(v -> navigateToFragment(new BillsFragment(), R.id.menuBills, bottomNavigationView));
+        goTransactions.setOnClickListener(v -> navigateToFragment(new TransactionFragment(), R.id.menuTransactions, bottomNavigationView));
+        goBudget.setOnClickListener(v -> navigateToFragment(new BudgetFragment(), R.id.menuBudget, bottomNavigationView));
+        goGoals.setOnClickListener(v -> navigateToFragment(new BudgetFragment(), R.id.menuBudget, bottomNavigationView));
+
         return view;
     }
 
@@ -144,5 +164,16 @@ public class HomeFragment extends Fragment {
 
         // Animate the chart
         pieChart.animateY(1500);
+    }
+
+    // Method to navigate to a fragment and update bottom navigation selection
+    private void navigateToFragment(Fragment fragment, int menuItemId, BottomNavigationView bottomNavigationView) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, fragment);
+        transaction.addToBackStack(null); // Allows back navigation
+        transaction.commit();
+
+        // Update Bottom Navigation Selection
+        bottomNavigationView.setSelectedItemId(menuItemId);
     }
 }
