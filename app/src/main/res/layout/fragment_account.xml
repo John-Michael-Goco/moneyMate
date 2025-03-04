@@ -67,6 +67,13 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/sampelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADD ACCOUNt"
+                />
+
             <!-- Cash Card View-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -110,48 +117,48 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Credit Card View-->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp">
+<!--            &lt;!&ndash; Credit Card View&ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:layout_marginStart="5dp"-->
+<!--                android:layout_marginEnd="5dp"-->
+<!--                app:cardCornerRadius="20dp"-->
+<!--                app:cardElevation="6dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center"-->
+<!--                    android:padding="16dp">-->
 
-                    <!-- Credit Text -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Credit"
-                        android:textSize="16sp"
-                        android:textColor="@color/grey"
-                        android:textStyle="bold"
-                        android:layout_weight="1"
-                        android:gravity="center" />
+<!--                    &lt;!&ndash; Credit Text &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Credit"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="@color/grey"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="center" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/creditRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="5dp" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/creditRecyclerView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="20dp"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_marginEnd="20dp"-->
+<!--                        android:layout_marginBottom="5dp" />-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- Investment Card View-->
             <androidx.cardview.widget.CardView
@@ -282,78 +289,78 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Currency View-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardCurrency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground">
+<!--            &lt;!&ndash; Currency View&ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardCurrency"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:foreground="?attr/selectableItemBackground">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="16dp">-->
 
-                    <!-- Currency Text -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Currency"
-                        android:textSize="16sp"
-                        android:textColor="@color/grey"
-                        android:textStyle="bold"
-                        android:layout_weight="1"
-                        android:gravity="center" />
+<!--                    &lt;!&ndash; Currency Text &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Currency"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="@color/grey"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="center" />-->
 
-                    <!-- Bottom Border -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/grey"
-                        android:layout_marginTop="10dp" />
+<!--                    &lt;!&ndash; Bottom Border &ndash;&gt;-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/grey"-->
+<!--                        android:layout_marginTop="10dp" />-->
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <!-- Theme View -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_marginBottom="30dp">
+<!--            &lt;!&ndash; Theme View &ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardTheme"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:foreground="?attr/selectableItemBackground"-->
+<!--                android:layout_marginBottom="30dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="16dp">-->
 
-                    <!-- Theme Text -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Theme"
-                        android:textSize="16sp"
-                        android:textColor="@color/grey"
-                        android:textStyle="bold"
-                        android:layout_weight="1"
-                        android:gravity="center" />
+<!--                    &lt;!&ndash; Theme Text &ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Theme"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="@color/grey"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="center" />-->
 
-                    <!-- Bottom Border -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/grey"
-                        android:layout_marginTop="10dp" />
+<!--                    &lt;!&ndash; Bottom Border &ndash;&gt;-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/grey"-->
+<!--                        android:layout_marginTop="10dp" />-->
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- Sign Out View -->
             <androidx.cardview.widget.CardView

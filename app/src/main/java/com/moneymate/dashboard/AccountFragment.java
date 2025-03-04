@@ -1,5 +1,6 @@
 package com.moneymate.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.moneymate.R;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.moneymate.adapters.CashAdapter;
+import com.moneymate.auth.ForgotPasswordCode;
+import com.moneymate.auth.ForgotPasswordEmail;
 import com.moneymate.models.CashModel;
 import com.moneymate.adapters.CreditAdapter;
 import com.moneymate.models.CreditModel;
@@ -24,10 +29,12 @@ public class AccountFragment extends Fragment {
 
     private RecyclerView cashRecyclerView, creditRecyclerView, investmentRecyclerView;
     private CashAdapter cashAdapter;
-    private CreditAdapter creditAdapter;
+
+    // private CreditAdapter creditAdapter;
     private InvestmentAdapter investmentAdapter;
     private List<CashModel> cashAccountList;
-    private List<CreditModel> creditAccountList;
+
+    // private List<CreditModel> creditAccountList;
     private List<InvestmentModel> investmentAccountList;
 
     public AccountFragment() {
@@ -54,14 +61,14 @@ public class AccountFragment extends Fragment {
         cashRecyclerView.setAdapter(cashAdapter);
 
         // Initialize Credit Accounts RecyclerView
-        creditRecyclerView = view.findViewById(R.id.creditRecyclerView);
-        creditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // creditRecyclerView = view.findViewById(R.id.creditRecyclerView);
+        // creditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        creditAccountList = new ArrayList<>();
-        loadCreditSampleData();
+        // creditAccountList = new ArrayList<>();
+        // loadCreditSampleData();
 
-        creditAdapter = new CreditAdapter(creditAccountList);
-        creditRecyclerView.setAdapter(creditAdapter);
+        // creditAdapter = new CreditAdapter(creditAccountList);
+        // creditRecyclerView.setAdapter(creditAdapter);
 
         // Initialize Investment Accounts RecyclerView
         investmentRecyclerView = view.findViewById(R.id.investmentRecyclerView);
@@ -72,6 +79,14 @@ public class AccountFragment extends Fragment {
 
         investmentAdapter = new InvestmentAdapter(investmentAccountList);
         investmentRecyclerView.setAdapter(investmentAdapter);
+
+        Button sampleBtn = view.findViewById(R.id.sampelBtn);
+        if (sampleBtn != null) {
+            sampleBtn.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), SelectAccountType.class);
+                startActivity(intent);
+            });
+        }
     }
 
     private void loadCashSampleData() {
@@ -80,13 +95,13 @@ public class AccountFragment extends Fragment {
         cashAccountList.add(new CashModel(R.drawable.logo, "Cash on Hand", "₱2,000"));
     }
 
-    private void loadCreditSampleData() {
-        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 1", "₱-12,000"));
-        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 2", "₱-8,500"));
-        creditAccountList.add(new CreditModel(R.drawable.logo, "Personal Loan", "₱-25,000"));
-    }
+//    private void loadCreditSampleData() {
+//        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 1", "₱-12,000"));
+//        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 2", "₱-8,500"));
+//        creditAccountList.add(new CreditModel(R.drawable.logo, "Personal Loan", "₱-25,000"));
+//    }
 
-    private void loadInvestmentSampleData() {  // Corrected function
+    private void loadInvestmentSampleData() {
         investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Stocks", "₱50,000"));
         investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Mutual Funds", "₱30,000"));
         investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Real Estate", "₱150,000"));
