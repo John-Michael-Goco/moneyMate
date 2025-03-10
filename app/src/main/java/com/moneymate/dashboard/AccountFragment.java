@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,11 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.moneymate.adapters.CashAdapter;
-import com.moneymate.auth.ForgotPasswordCode;
-import com.moneymate.auth.ForgotPasswordEmail;
 import com.moneymate.models.CashModel;
-import com.moneymate.adapters.CreditAdapter;
-import com.moneymate.models.CreditModel;
 import com.moneymate.adapters.InvestmentAdapter;
 import com.moneymate.models.InvestmentModel;
 
@@ -61,16 +58,6 @@ public class AccountFragment extends Fragment {
         cashAdapter = new CashAdapter(cashAccountList);
         cashRecyclerView.setAdapter(cashAdapter);
 
-        // Initialize Credit Accounts RecyclerView
-        // creditRecyclerView = view.findViewById(R.id.creditRecyclerView);
-        // creditRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // creditAccountList = new ArrayList<>();
-        // loadCreditSampleData();
-
-        // creditAdapter = new CreditAdapter(creditAccountList);
-        // creditRecyclerView.setAdapter(creditAdapter);
-
         // Initialize Investment Accounts RecyclerView
         investmentRecyclerView = view.findViewById(R.id.investmentRecyclerView);
         investmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,13 +68,22 @@ public class AccountFragment extends Fragment {
         investmentAdapter = new InvestmentAdapter(investmentAccountList);
         investmentRecyclerView.setAdapter(investmentAdapter);
 
+        // For Create New Account
         ImageView createAccountBtn = view.findViewById(R.id.addAccountBtn);
-        if (createAccountBtn != null) {
-            createAccountBtn.setOnClickListener(v -> {
+        createAccountBtn.setOnClickListener(v -> {
+            if (getActivity() != null) {
                 Intent intent = new Intent(getActivity(), SelectAccountType.class);
                 startActivity(intent);
-            });
-        }
+            }
+        });
+
+        CardView cardUserProfile = view.findViewById(R.id.cardUserProfile);
+        cardUserProfile.setOnClickListener(v -> {
+            if (getActivity() != null) {
+                Intent intent = new Intent(getActivity(), UserDetails.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadCashSampleData() {
@@ -95,12 +91,6 @@ public class AccountFragment extends Fragment {
         cashAccountList.add(new CashModel(R.drawable.logo, "Checking Account", "₱5,500"));
         cashAccountList.add(new CashModel(R.drawable.logo, "Cash on Hand", "₱2,000"));
     }
-
-//    private void loadCreditSampleData() {
-//        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 1", "₱-12,000"));
-//        creditAccountList.add(new CreditModel(R.drawable.logo, "Credit Card 2", "₱-8,500"));
-//        creditAccountList.add(new CreditModel(R.drawable.logo, "Personal Loan", "₱-25,000"));
-//    }
 
     private void loadInvestmentSampleData() {
         investmentAccountList.add(new InvestmentModel(R.drawable.logo, "Stocks", "₱50,000"));

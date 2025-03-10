@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MoneyMateApp"
         tools:targetApi="31">
         <activity
+            android:name=".dashboard.UserDetails"
+            android:exported="false" />
+        <activity
             android:name=".dashboard.CreateAccount"
             android:exported="false" />
         <activity

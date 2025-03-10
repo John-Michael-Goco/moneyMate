@@ -246,7 +246,7 @@
 
             <Button
                 android:id="@+id/backBtn"
-                android:layout_width=" 0dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="7.5dp"
                 android:layout_weight="1"
