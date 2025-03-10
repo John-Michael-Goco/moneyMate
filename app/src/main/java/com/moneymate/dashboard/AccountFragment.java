@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.moneymate.R;
 import java.util.ArrayList;
@@ -80,9 +81,9 @@ public class AccountFragment extends Fragment {
         investmentAdapter = new InvestmentAdapter(investmentAccountList);
         investmentRecyclerView.setAdapter(investmentAdapter);
 
-        Button sampleBtn = view.findViewById(R.id.sampelBtn);
-        if (sampleBtn != null) {
-            sampleBtn.setOnClickListener(v -> {
+        ImageView createAccountBtn = view.findViewById(R.id.addAccountBtn);
+        if (createAccountBtn != null) {
+            createAccountBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), SelectAccountType.class);
                 startActivity(intent);
             });

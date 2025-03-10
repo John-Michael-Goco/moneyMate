@@ -2,14 +2,11 @@ package com.moneymate.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.cardview.widget.CardView;
 
 import com.moneymate.R;
 
@@ -21,25 +18,34 @@ public class SelectAccountType extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_select_account_type);
 
-        // Ensure your XML has a View with id "main"
-        View rootView = findViewById(R.id.main);
-        if (rootView != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-                return insets;
-            });
-        }
-
-        // Find the "Back" button
+        // Find Views
         ImageView backBtn = findViewById(R.id.backBtn);
 
-        // Set click listener to finish activity instead of navigating to a Fragment
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        CardView bankAccount = findViewById(R.id.bankAccount);
+        CardView cash = findViewById(R.id.cash);
+        CardView wallet = findViewById(R.id.wallet);
+        CardView savings = findViewById(R.id.savings);
+        CardView retirement = findViewById(R.id.retirement);
+        CardView investment = findViewById(R.id.investment);
+        CardView crypto = findViewById(R.id.crypto);
+
+        // Handle back button
+        backBtn.setOnClickListener(v -> finish());
+
+        // Set click listeners to send data
+        bankAccount.setOnClickListener(v -> openNextPage("Bank Account", R.drawable.bank_logo));
+        cash.setOnClickListener(v -> openNextPage("Cash", R.drawable.cash_logo));
+        wallet.setOnClickListener(v -> openNextPage("Wallet", R.drawable.wallet_logo));
+        savings.setOnClickListener(v -> openNextPage("Savings", R.drawable.savings_logo));
+        retirement.setOnClickListener(v -> openNextPage("Retirement", R.drawable.retirement_logo));
+        investment.setOnClickListener(v -> openNextPage("Investment", R.drawable.investment_logo));
+        crypto.setOnClickListener(v -> openNextPage("Crypto", R.drawable.bitcoin_logo));
+    }
+
+    private void openNextPage(String accountType, int accountLogo) {
+        Intent intent = new Intent(SelectAccountType.this, CreateAccount.class);
+        intent.putExtra("accountType", accountType); // Send account type
+        intent.putExtra("accountLogo", accountLogo); // Send logo
+        startActivity(intent);
     }
 }

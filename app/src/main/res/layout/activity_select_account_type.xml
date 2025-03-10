@@ -1,3 +1,5 @@
+
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,34 +17,28 @@
         android:gravity="center_horizontal"
         tools:context=".dashboard.SelectAccountType">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_left"
+            android:layout_gravity="start"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="35dp"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/backBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:outlineSpotShadowColor="@color/grey"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/arrow_left" />
-
-            <TextView
-                android:layout_marginStart="34dp"
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Select Account Type"
-                android:textSize="24sp"
-                android:textColor="@color/grey" />
-        </LinearLayout>
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="Select Account Type"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/cashTitle"
@@ -53,6 +49,7 @@
             android:text="Cash"
             android:textAlignment="center"
             android:textSize="22sp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"/>
 
             <LinearLayout
@@ -84,7 +81,7 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/logo"
+                            android:src="@drawable/bank_logo"
                             android:contentDescription="Back Account Icon"/>
 
                         <TextView
@@ -120,7 +117,7 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/logo"
+                            android:src="@drawable/cash_logo"
                             android:contentDescription="Cash Icon"/>
 
                         <TextView
@@ -155,7 +152,7 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/logo"
+                            android:src="@drawable/wallet_logo"
                             android:contentDescription="Wallet Icon"/>
 
                         <TextView
@@ -190,7 +187,7 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/logo"
+                            android:src="@drawable/savings_logo"
                             android:contentDescription="Savings Icon"/>
 
                         <TextView
@@ -249,7 +246,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/retirement_logo"
                         android:contentDescription="Retiremnt Icon"/>
 
                     <TextView
@@ -286,7 +283,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/investment_logo"
                         android:contentDescription="Investment Icon"/>
 
                     <TextView
@@ -323,7 +320,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/bitcoin_logo"
                         android:contentDescription="Crypto Icon"/>
 
                     <TextView

@@ -1,9 +1,8 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:orientation="vertical">
 
@@ -13,129 +12,256 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
-        android:paddingBottom="20dp"
         android:gravity="center_horizontal"
         tools:context=".dashboard.CreateAccount">
 
-
         <TextView
-            android:id="@+id/slogan"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="Add Account "
+            android:text="Add Account"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="28sp" />
+
+        <!-- Account Type Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/accountLogoImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/logo"
+                android:contentDescription="Account Logo"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="Account Type"
+                    app:boxBackgroundMode="none"
+                    android:background="@android:color/transparent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/accountTypeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/eerie_black"
+                        android:focusable="false"
+                        android:clickable="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Account Name Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/accountNameLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/account_name_logo"
+                android:contentDescription="Account Name Logo"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Account Name"
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/eerie_black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Account Number Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/accountNumberLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/account_number_logo"
+                android:contentDescription="Account Number Logo"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Account Number"
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/accountNumberText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/eerie_black"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Currency Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/currencyLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/currency_logo"
+                android:contentDescription="Currency Logo"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Currency"
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/currencyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/eerie_black"
+                    android:text="PHP (₱)"
+                    android:focusable="false"
+                    android:clickable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <!-- Starting Balance Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <ImageView
+                android:id="@+id/startingBalanceLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/starting_balance_logo"
+                android:contentDescription="Account Number Logo"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Starting Balance"
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/startingBalanceText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center_vertical"
+                    android:inputType="number"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/eerie_black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/firstName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="First Name"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Last Name"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nickname"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/signUpEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/signUpPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="20dp"
-                app:passwordToggleEnabled="true"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
 
             <Button
-                android:id="@+id/signUpBtn"
-                android:layout_width="match_parent"
+                android:id="@+id/backBtn"
+                android:layout_width=" 0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@color/eerie_black"
-                android:fontFamily="@font/inter_medium"
-                android:padding="13dp"
-                android:text="Sign Up"
-                android:textColor="@color/white" />
+                android:layout_marginRight="7.5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/grey"
+                android:text="Back" />
 
             <Button
-                android:id="@+id/signInBtn"
-                android:layout_width="match_parent"
+                android:id="@+id/createAccountBtn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:elevation="0dp"
-                android:fontFamily="@font/inter_medium"
-                android:text="Already have an account? Sign In"
-                android:textColor="@color/cerulean" />
+                android:layout_weight="1"
+                android:text="Create"
+                android:backgroundTint="@color/light_green"
+                android:layout_marginLeft="7.5dp"/>
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

@@ -34,7 +34,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:gravity="center"
                     android:padding="16dp"
                     android:background="@drawable/networth_background">
 
@@ -42,37 +41,42 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:fontFamily="@font/poppins"
                             android:text="Net Worth"
                             android:textColor="@color/grey"
                             android:textSize="22sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:layout_marginStart="23dp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins"
-                            android:text="P100,000"
-                            android:textColor="@color/grey"
-                            android:textSize="20sp"
-                            android:textStyle="bold"/>
-
+                        <ImageButton
+                            android:id="@+id/addAccountBtn"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/plus_logo"
+                            android:layout_marginBottom="6dp" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/poppins"
+                        android:text="P100,000"
+                        android:textColor="@color/grey"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <Button
-                android:id="@+id/sampelBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ADD ACCOUNt"
-                />
 
             <!-- Cash Card View-->
             <androidx.cardview.widget.CardView
