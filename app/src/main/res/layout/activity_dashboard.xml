@@ -13,7 +13,152 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="32dp"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Main FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:layout_marginBottom="120dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/cerulean"
+            android:tint="@color/white"
+            app:tint="@color/white"
+            app:maxImageSize="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Add Bill FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addBillFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_bill"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:tint="#C2B280"
+            android:visibility="invisible"
+            app:tint="#C2B280"
+            app:maxImageSize="35dp"
+            app:layout_constraintBottom_toTopOf="@id/floatingButton"
+            app:layout_constraintEnd_toEndOf="@id/floatingButton" />
+
+        <TextView
+            android:id="@+id/addBillTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Bill"
+            android:textStyle="bold"
+            android:elevation="5dp"
+            android:background="@drawable/fab_bg"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="6dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/addBillFab"
+            app:layout_constraintTop_toTopOf="@id/addBillFab"
+            app:layout_constraintBottom_toBottomOf="@id/addBillFab" />
+
+        <!-- Transfer FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/transferFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/transfer"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:tint="@color/cerulean"
+            android:visibility="invisible"
+            app:tint="@color/cerulean"
+            app:layout_constraintBottom_toTopOf="@id/addBillFab"
+            app:layout_constraintEnd_toEndOf="@id/floatingButton" />
+
+        <TextView
+            android:id="@+id/transferTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transfer"
+            android:textStyle="bold"
+            android:elevation="5dp"
+            android:background="@drawable/fab_bg"
+            android:paddingHorizontal="27dp"
+            android:paddingVertical="6dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/transferFab"
+            app:layout_constraintTop_toTopOf="@id/transferFab"
+            app:layout_constraintBottom_toBottomOf="@id/transferFab" />
+
+        <!-- Add Income FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addIncomeFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_income"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:tint="#1BDB28FF"
+            android:visibility="invisible"
+            app:maxImageSize="35dp"
+            app:tint="#1BDB28FF"
+            app:layout_constraintBottom_toTopOf="@id/transferFab"
+            app:layout_constraintEnd_toEndOf="@id/floatingButton" />
+
+        <TextView
+            android:id="@+id/addIncomeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Income"
+            android:textStyle="bold"
+            android:elevation="5dp"
+            android:background="@drawable/fab_bg"
+            android:paddingHorizontal="15.3dp"
+            android:paddingVertical="6dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/addIncomeFab"
+            app:layout_constraintTop_toTopOf="@id/addIncomeFab"
+            app:layout_constraintBottom_toBottomOf="@id/addIncomeFab" />
+
+        <!-- Add Expense FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addExpenseFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_expense"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:tint="#1BDB28FF"
+            android:visibility="invisible"
+            app:maxImageSize="35dp"
+            app:tint="#1BDB28FF"
+            app:layout_constraintBottom_toTopOf="@id/addIncomeFab"
+            app:layout_constraintEnd_toEndOf="@id/floatingButton" />
+
+        <TextView
+            android:id="@+id/addExpenseTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Expense"
+            android:textStyle="bold"
+            android:elevation="5dp"
+            android:background="@drawable/fab_bg"
+            android:paddingHorizontal="11.5dp"
+            android:paddingVertical="6dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/addExpenseFab"
+            app:layout_constraintTop_toTopOf="@id/addExpenseFab"
+            app:layout_constraintBottom_toBottomOf="@id/addExpenseFab" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,6 +176,6 @@
         app:itemActiveIndicatorStyle="@null"
         app:itemRippleColor="@android:color/transparent"
         app:itemTextAppearanceActive="@style/BottomNavTextActive"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
