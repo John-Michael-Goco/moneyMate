@@ -13,6 +13,18 @@
         android:theme="@style/Theme.MoneyMateApp"
         tools:targetApi="31">
         <activity
+            android:name=".dashboard.AddBill"
+            android:exported="false" />
+        <activity
+            android:name=".dashboard.Transfer"
+            android:exported="false" />
+        <activity
+            android:name=".dashboard.AddIncome"
+            android:exported="false" />
+        <activity
+            android:name=".dashboard.AddExpense"
+            android:exported="false" />
+        <activity
             android:name=".dashboard.CategoryViewPager"
             android:exported="false" />
         <activity

@@ -1,7 +1,6 @@
 package com.moneymate.dashboard;
 
 import android.os.Bundle;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -28,6 +27,9 @@ public class Dashboard extends AppCompatActivity {
     // Declare a BottomNavigationView to handle navigation
     BottomNavigationView bottomNavigationView;
 
+    // Declare FAB globally
+    private FloatingActionButton floatingButton;
+
     // Animations for FAB
     private Animation fromBottomFabAnim;
     private Animation toBottomFabAnim;
@@ -50,39 +52,46 @@ public class Dashboard extends AppCompatActivity {
         // Initialize the BottomNavigationView from the layout
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        // Initialize FAB
+        floatingButton = findViewById(R.id.floatingButton);
+
         // Set up a listener for navigation item selection
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                // Determine which menu item was selected and assign the appropriate fragment
                 Fragment fragmentSelected = null;
-
                 int id = item.getItemId();
 
-                if(id == R.id.menuHome){
+                if (id == R.id.menuHome) {
                     fragmentSelected = new HomeFragment();
-                }else if(id == R.id.menuBills){
+                    toggleFabVisibility(true);
+                } else if (id == R.id.menuBills) {
                     fragmentSelected = new BillsFragment();
-                }  else if(id == R.id.menuTransactions){
+                    toggleFabVisibility(true);
+                } else if (id == R.id.menuTransactions) {
                     fragmentSelected = new TransactionFragment();
-                } else if(id == R.id.menuBudget){
+                    toggleFabVisibility(true);
+                } else if (id == R.id.menuBudget) {
                     fragmentSelected = new BudgetFragment();
-                } else if(id == R.id.menuAccount){
+                    toggleFabVisibility(false); // Hide FAB
+                } else if (id == R.id.menuAccount) {
                     fragmentSelected = new AccountFragment();
+                    toggleFabVisibility(false); // Hide FAB
                 }
 
                 // Replace the current fragment with the new one
-                if(fragmentSelected != null){
+                if (fragmentSelected != null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragmentSelected).commit();
                 }
                 return true;
             }
         });
 
-        // load the HomeFragment by default
-        if(savedInstanceState == null){
+        // Load the HomeFragment by default and show FAB
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+            toggleFabVisibility(true);
         }
 
         // Initialize animations
@@ -92,8 +101,6 @@ public class Dashboard extends AppCompatActivity {
         rotateCounterClockWise = AnimationUtils.loadAnimation(this, R.anim.rotate_counter_clock_wise);
 
         // Main FAB and other views
-        FloatingActionButton floatingButton = findViewById(R.id.floatingButton);
-
         FloatingActionButton addBillFab = findViewById(R.id.addBillFab);
         FloatingActionButton transferFab = findViewById(R.id.transferFab);
         FloatingActionButton addIncomeFab = findViewById(R.id.addIncomeFab);
@@ -125,9 +132,9 @@ public class Dashboard extends AppCompatActivity {
                 hideFab(addExpenseFab, addExpenseTv);
             }
         });
-
     }
-    // Helper method to show FAB and label
+
+    // Function to show FAB and label
     private void showFab(View fab, View label) {
         fab.setVisibility(View.VISIBLE);
         fab.setClickable(true);
@@ -138,7 +145,7 @@ public class Dashboard extends AppCompatActivity {
         label.startAnimation(fromBottomFabAnim);
     }
 
-    // Helper method to hide FAB and label
+    //  Function to hide FAB and label
     private void hideFab(View fab, View label) {
         fab.startAnimation(toBottomFabAnim);
         fab.setVisibility(View.GONE);
@@ -147,5 +154,14 @@ public class Dashboard extends AppCompatActivity {
         label.startAnimation(toBottomFabAnim);
         label.setVisibility(View.GONE);
         label.setClickable(false);
+    }
+
+    // Function for Toggle FAB visibility from Fragments
+    public void toggleFabVisibility(boolean isVisible) {
+        if (isVisible) {
+            floatingButton.show();
+        } else {
+            floatingButton.hide();
+        }
     }
 }
