@@ -42,6 +42,5 @@ public class CreateAccount extends AppCompatActivity {
         // Handle back button
         Button backBtn = findViewById(R.id.backBtn);
         backBtn.setOnClickListener(v -> finish());
-
     }
 }

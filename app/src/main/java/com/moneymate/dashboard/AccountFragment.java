@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.moneymate.adapters.CashAdapter;
+import com.moneymate.auth.Login;
+import com.moneymate.auth.Register;
 import com.moneymate.models.CashModel;
 import com.moneymate.adapters.InvestmentAdapter;
 import com.moneymate.models.InvestmentModel;
@@ -81,6 +83,22 @@ public class AccountFragment extends Fragment {
         cardUserProfile.setOnClickListener(v -> {
             if (getActivity() != null) {
                 Intent intent = new Intent(getActivity(), UserDetails.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardCategories = view.findViewById(R.id.cardCategories);
+        cardCategories.setOnClickListener(v -> {
+            if (getActivity() != null) {
+                Intent intent = new Intent(getActivity(), CategoryViewPager.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView cardSignOut = view.findViewById(R.id.cardSignOut);
+        cardSignOut.setOnClickListener(v -> {
+            if (getActivity() != null) {
+                Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
             }
         });

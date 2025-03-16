@@ -44,8 +44,8 @@ public class SelectAccountType extends AppCompatActivity {
 
     private void openNextPage(String accountType, int accountLogo) {
         Intent intent = new Intent(SelectAccountType.this, CreateAccount.class);
-        intent.putExtra("accountType", accountType); // Send account type
-        intent.putExtra("accountLogo", accountLogo); // Send logo
+        intent.putExtra("accountType", accountType);
+        intent.putExtra("accountLogo", accountLogo);
         startActivity(intent);
     }
 }
