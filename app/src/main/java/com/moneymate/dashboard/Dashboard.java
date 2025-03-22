@@ -27,7 +27,7 @@ public class Dashboard extends AppCompatActivity {
     // Declare a BottomNavigationView to handle navigation
     BottomNavigationView bottomNavigationView;
 
-    // Declare FAB globally
+    // Declare FAB
     private FloatingActionButton floatingButton;
 
     // Animations for FAB
@@ -35,6 +35,17 @@ public class Dashboard extends AppCompatActivity {
     private Animation toBottomFabAnim;
     private Animation rotateClockWise;
     private Animation rotateCounterClockWise;
+
+    // Main FAB and other views
+    private FloatingActionButton addBillFab;
+    private FloatingActionButton transferFab;
+    private FloatingActionButton addIncomeFab;
+    private FloatingActionButton addExpenseFab;
+
+    private View addBillTv;
+    private View transferTv;
+    private View addIncomeTv;
+    private View addExpenseTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,23 @@ public class Dashboard extends AppCompatActivity {
 
         // Initialize FAB
         floatingButton = findViewById(R.id.floatingButton);
+
+        // Initialize animations
+        fromBottomFabAnim = AnimationUtils.loadAnimation(this, R.anim.from_bottom_fab);
+        toBottomFabAnim = AnimationUtils.loadAnimation(this, R.anim.to_bottom_fab);
+        rotateClockWise = AnimationUtils.loadAnimation(this, R.anim.rotate_clock_wise);
+        rotateCounterClockWise = AnimationUtils.loadAnimation(this, R.anim.rotate_counter_clock_wise);
+
+        // Initialize action FABs and labels
+        addBillFab = findViewById(R.id.addBillFab);
+        transferFab = findViewById(R.id.transferFab);
+        addIncomeFab = findViewById(R.id.addIncomeFab);
+        addExpenseFab = findViewById(R.id.addExpenseFab);
+
+        addBillTv = findViewById(R.id.addBillTv);
+        transferTv = findViewById(R.id.transferTv);
+        addIncomeTv = findViewById(R.id.addIncomeTv);
+        addExpenseTv = findViewById(R.id.addExpenseTv);
 
         // Set up a listener for navigation item selection
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -94,23 +122,6 @@ public class Dashboard extends AppCompatActivity {
             toggleFabVisibility(true);
         }
 
-        // Initialize animations
-        fromBottomFabAnim = AnimationUtils.loadAnimation(this, R.anim.from_bottom_fab);
-        toBottomFabAnim = AnimationUtils.loadAnimation(this, R.anim.to_bottom_fab);
-        rotateClockWise = AnimationUtils.loadAnimation(this, R.anim.rotate_clock_wise);
-        rotateCounterClockWise = AnimationUtils.loadAnimation(this, R.anim.rotate_counter_clock_wise);
-
-        // Main FAB and other views
-        FloatingActionButton addBillFab = findViewById(R.id.addBillFab);
-        FloatingActionButton transferFab = findViewById(R.id.transferFab);
-        FloatingActionButton addIncomeFab = findViewById(R.id.addIncomeFab);
-        FloatingActionButton addExpenseFab = findViewById(R.id.addExpenseFab);
-
-        View addBillTv = findViewById(R.id.addBillTv);
-        View transferTv = findViewById(R.id.transferTv);
-        View addIncomeTv = findViewById(R.id.addIncomeTv);
-        View addExpenseTv = findViewById(R.id.addExpenseTv);
-
         // Toggle FAB menu
         floatingButton.setOnClickListener(v -> {
             isExpanded = !isExpanded;
@@ -145,7 +156,7 @@ public class Dashboard extends AppCompatActivity {
         label.startAnimation(fromBottomFabAnim);
     }
 
-    //  Function to hide FAB and label
+    // Function to hide FAB and label
     private void hideFab(View fab, View label) {
         fab.startAnimation(toBottomFabAnim);
         fab.setVisibility(View.GONE);
@@ -162,6 +173,16 @@ public class Dashboard extends AppCompatActivity {
             floatingButton.show();
         } else {
             floatingButton.hide();
+
+            // Reset FAB menu
+            if (isExpanded) {
+                isExpanded = false;
+                hideFab(addBillFab, addBillTv);
+                hideFab(transferFab, transferTv);
+                hideFab(addIncomeFab, addIncomeTv);
+                hideFab(addExpenseFab, addExpenseTv);
+                floatingButton.startAnimation(rotateCounterClockWise);
+            }
         }
     }
 }

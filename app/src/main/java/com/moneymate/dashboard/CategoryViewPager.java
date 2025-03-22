@@ -38,7 +38,7 @@ public class CategoryViewPager extends AppCompatActivity {
             {
                     R.drawable.bills_ic, R.drawable.drink_ic, R.drawable.education_ic,
                     R.drawable.entertainment_ic, R.drawable.food_ic, R.drawable.personal_care_ic,
-                    R.drawable.personal_care_ic, R.drawable.shopping_ic, R.drawable.others_ic
+                    R.drawable.pet_care_ic, R.drawable.shopping_ic, R.drawable.others_ic
             },
             {
                     R.drawable.salary_ic, R.drawable.business_ic, R.drawable.investment_ic,
