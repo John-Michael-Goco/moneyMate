@@ -1,7 +1,10 @@
 package com.moneymate.dashboard;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.moneymate.R;
 import java.util.ArrayList;
@@ -28,14 +32,10 @@ import com.moneymate.models.InvestmentModel;
 
 public class AccountFragment extends Fragment {
 
-    private RecyclerView cashRecyclerView, creditRecyclerView, investmentRecyclerView;
+    private RecyclerView cashRecyclerView, investmentRecyclerView;
     private CashAdapter cashAdapter;
-
-    // private CreditAdapter creditAdapter;
     private InvestmentAdapter investmentAdapter;
     private List<CashModel> cashAccountList;
-
-    // private List<CreditModel> creditAccountList;
     private List<InvestmentModel> investmentAccountList;
 
     public AccountFragment() {
@@ -96,19 +96,33 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        // Logout confirmation before signing out
         CardView cardSignOut = view.findViewById(R.id.cardSignOut);
-        cardSignOut.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                // Clear saved user data
-                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
-                sharedPreferences.edit().clear().apply();
+        cardSignOut.setOnClickListener(v -> showLogoutConfirmationDialog());
+    }
 
-                // Navigate to Login Page
-                Intent intent = new Intent(getActivity(), Login.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
+    private void showLogoutConfirmationDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Confirm Logout")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes", (dialog, which) -> logoutUser())
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void logoutUser() {
+        if (getActivity() != null) {
+            // Clear saved user data
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+
+            // Navigate to Login Page and clear activity stack
+            Intent intent = new Intent(requireActivity(), Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
     private void loadCashSampleData() {

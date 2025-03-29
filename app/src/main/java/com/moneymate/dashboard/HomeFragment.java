@@ -1,5 +1,7 @@
 package com.moneymate.dashboard;
 
+import android.content.SharedPreferences;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.moneymate.adapters.GoalAdapter;
 import com.moneymate.models.Goal;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -37,10 +40,19 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        // Retrieve user data
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
+        String nickname = sharedPreferences.getString("nickname", "User");
+
         // Initialize ProgressBar and TextView
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
         TextView progressText = view.findViewById(R.id.progressText);
         TextView progressPercentage = view.findViewById(R.id.progressPercentage);
+        TextView greetingsTv = view.findViewById(R.id.greetings);
+
+        // Determine greeting based on time of day
+        String greeting = getGreetingMessage();
+        greetingsTv.setText(greeting + ", " + nickname + "!");
 
         // Set progress value
         int progressValue = 120;
@@ -175,5 +187,19 @@ public class HomeFragment extends Fragment {
 
         // Update Bottom Navigation Selection
         bottomNavigationView.setSelectedItemId(menuItemId);
+    }
+
+    // Determines the greeting message based on the current time.
+    private String getGreetingMessage() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (hour >= 5 && hour < 12) {
+            return "Good Morning";
+        } else if (hour >= 12 && hour < 18) {
+            return "Good Afternoon";
+        } else {
+            return "Good Evening";
+        }
     }
 }

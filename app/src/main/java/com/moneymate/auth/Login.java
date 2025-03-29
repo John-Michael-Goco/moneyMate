@@ -1,5 +1,7 @@
 package com.moneymate.auth;
 
+import android.content.SharedPreferences;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -89,13 +91,26 @@ public class Login extends AppCompatActivity {
 
         StringRequest request = new StringRequest(Request.Method.POST, URL,
                 response -> {
-
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         String status = jsonResponse.optString("status", "error");
                         String message = jsonResponse.optString("message", "Unknown error");
 
                         if ("success".equals(status)) {
+                            JSONObject userObject = jsonResponse.getJSONObject("user");
+
+                            // Save user data in SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userID", userObject.getString("userID"));
+                            editor.putString("first_name", userObject.getString("first_name"));
+                            editor.putString("last_name", userObject.getString("last_name"));
+                            editor.putString("nickname", userObject.getString("nickname"));
+                            editor.putString("email", userObject.getString("email"));
+                            editor.putString("password", userObject.getString("password"));
+                            editor.putString("account_status", userObject.getString("account_status"));
+                            editor.apply();
+
                             Toast.makeText(this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
                             navigateToDashboard();
                         } else {
@@ -126,9 +141,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void navigateToDashboard() {
-            Intent intent = new Intent(Login.this, Dashboard.class);
-
-            startActivity(intent);
-            finish();
+        Intent intent = new Intent(Login.this, Dashboard.class);
+        startActivity(intent);
+        finish();
     }
 }
