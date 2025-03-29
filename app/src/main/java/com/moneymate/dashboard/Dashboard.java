@@ -1,5 +1,6 @@
 package com.moneymate.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 import com.moneymate.R;
+import com.moneymate.auth.ForgotPasswordCode;
+import com.moneymate.auth.ForgotPasswordEmail;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -82,6 +85,26 @@ public class Dashboard extends AppCompatActivity {
         transferTv = findViewById(R.id.transferTv);
         addIncomeTv = findViewById(R.id.addIncomeTv);
         addExpenseTv = findViewById(R.id.addExpenseTv);
+
+        // Set click listener to go to Add Income page
+        addIncomeFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, AddExpenseOrIncome.class);
+                intent.putExtra("transaction_type", "income");
+                startActivity(intent);
+            }
+        });
+
+        // Set click listener to go to Add Expense page
+        addExpenseFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, AddExpenseOrIncome.class);
+                intent.putExtra("transaction_type", "expense");
+                startActivity(intent);
+            }
+        });
 
         // Set up a listener for navigation item selection
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

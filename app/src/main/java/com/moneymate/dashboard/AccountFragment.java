@@ -1,6 +1,7 @@
 package com.moneymate.dashboard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -98,8 +99,14 @@ public class AccountFragment extends Fragment {
         CardView cardSignOut = view.findViewById(R.id.cardSignOut);
         cardSignOut.setOnClickListener(v -> {
             if (getActivity() != null) {
+                // Clear saved user data
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
+                sharedPreferences.edit().clear().apply();
+
+                // Navigate to Login Page
                 Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }
