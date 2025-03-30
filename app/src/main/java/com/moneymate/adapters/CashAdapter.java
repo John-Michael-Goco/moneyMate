@@ -30,9 +30,9 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashViewHolder
     @Override
     public void onBindViewHolder(@NonNull CashViewHolder holder, int position) {
         CashModel account = cashList.get(position);
-        holder.cashAccountLogo.setImageResource(account.getLogoResId());
-        holder.cashAccountTitle.setText(account.getTitle());
-        holder.cashAmountText.setText(account.getAmount());
+        holder.cashAccountLogo.setImageResource(account.getAccountLogo());
+        holder.cashAccountTitle.setText(account.getAccountType());
+        holder.cashAmountText.setText(formatBalance(account.getBalance()));
 
         // Click listener for the action button (can be modified later)
         holder.cashActionButton.setOnClickListener(v -> {
@@ -56,6 +56,15 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashViewHolder
             cashAccountTitle = itemView.findViewById(R.id.cashAccountTitle);
             cashAmountText = itemView.findViewById(R.id.cashAmountText);
             cashActionButton = itemView.findViewById(R.id.cashActionButton);
+        }
+    }
+
+    private String formatBalance(String balance) {
+        try {
+            double amount = Double.parseDouble(balance);
+            return String.format("₱%,.2f", amount);
+        } catch (NumberFormatException e) {
+            return balance;
         }
     }
 }

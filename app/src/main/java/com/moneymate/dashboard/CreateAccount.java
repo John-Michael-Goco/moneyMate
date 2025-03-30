@@ -37,9 +37,9 @@ public class CreateAccount extends AppCompatActivity {
     private static final String URL = "http://192.168.1.6/moneymateBackend/createAccount.php";
 
     private TextInputEditText accountTypeInput, accountNameInput, accountNumberInput, currencyInput, balanceInput, logoInput;
-
     private Button createAccountBtn, backBtn;
     private ImageView accountLogo;
+    private int accLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +66,10 @@ public class CreateAccount extends AppCompatActivity {
         accountNumberInput = findViewById(R.id.accountNumberText);
         currencyInput = findViewById(R.id.currencyText);
         balanceInput = findViewById(R.id.startingBalanceText);
-        logoInput = findViewById(R.id.logoText);
-
         accountLogo = findViewById(R.id.accountLogoImage);
 
         // Set data
         accountTypeInput.setText(accountType);
-        logoInput.setText(accLogo);
         accountLogo.setImageResource(accLogo);
 
         // Handle back button
@@ -81,10 +78,10 @@ public class CreateAccount extends AppCompatActivity {
 
         // Handle Create Account button
         createAccountBtn = findViewById(R.id.createAccountBtn);
-        createAccountBtn.setOnClickListener(v -> createAccount(userID));
+        createAccountBtn.setOnClickListener(v -> createAccount(userID, accLogo));
     }
 
-    private void createAccount(String userID) {
+    private void createAccount(String userID, int accLogo) {
 
         // Get input values
         String accountTypeVal = accountTypeInput.getText().toString().trim();
@@ -92,7 +89,8 @@ public class CreateAccount extends AppCompatActivity {
         String accountNumberVal = accountNumberInput.getText().toString().trim();
         String currencyVal = currencyInput.getText().toString().trim();
         String balanceVal = balanceInput.getText().toString().trim();
-        String accountLogoVal = logoInput.getText().toString().trim();
+
+        String accountLogoVal = String.valueOf(accLogo);
 
         // Input validation
         if (accountTypeVal.isEmpty() || accountNameVal.isEmpty() || accountNumberVal.isEmpty() ||

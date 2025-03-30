@@ -1,24 +1,36 @@
 package com.moneymate.models;
 
 public class InvestmentModel {
-    private int logoResId;
-    private String title;
-    private String amount;
+    private int accountLogo;
+    private String accountID, accountType, accountName, accountNumber, currency, balance;
 
-    public InvestmentModel(int logoResId, String title, String amount) {
-        this.logoResId = logoResId;
-        this.title = title;
-        this.amount = amount;
+    public InvestmentModel(String accountID, String accountType, int accountLogo, String accountName, String accountNumber, String currency, String balance) {
+        this.accountID = accountID;
+        this.accountType = accountType;
+        this.accountLogo = accountLogo;
+        this.accountName = accountName;
+        this.accountNumber = accountNumber;
+        this.currency = currency;
+        this.balance = balance;
     }
 
-    public int getLogoResId() {
-        return logoResId;
+    public String getAccountID() { return accountID;}
+    public String getAccountType() {
+        return accountType;
     }
-
-    public String getTitle() {
-        return title;
+    public int getAccountLogo() {
+        return accountLogo;
     }
-    public String getAmount() {
-        return amount;
+    public String getAccountName() {
+        return accountName;
+    }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    public String getCurrency() {
+        return currency;
+    }
+    public String getBalance() {
+        return balance;
     }
 }

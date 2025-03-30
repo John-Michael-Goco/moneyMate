@@ -67,11 +67,12 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/networthText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="@font/poppins"
-                        android:text="P100,000"
+                        android:text="₱ 00.00"
                         android:textColor="@color/grey"
                         android:textSize="20sp"
                         android:textStyle="bold"/>
@@ -116,53 +117,20 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"/>
 
+                    <TextView
+                        android:id="@+id/noCashAccountsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="No accounts yet"
+                        android:textSize="18sp"
+                        android:textColor="@color/eerie_black"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
+
                 </LinearLayout>
-
-
             </androidx.cardview.widget.CardView>
-
-<!--            &lt;!&ndash; Credit Card View&ndash;&gt;-->
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                android:layout_marginStart="5dp"-->
-<!--                android:layout_marginEnd="5dp"-->
-<!--                app:cardCornerRadius="20dp"-->
-<!--                app:cardElevation="6dp">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:gravity="center"-->
-<!--                    android:padding="16dp">-->
-
-<!--                    &lt;!&ndash; Credit Text &ndash;&gt;-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Credit"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textColor="@color/grey"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center" />-->
-
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
-<!--                        android:id="@+id/creditRecyclerView"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="20dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:layout_marginEnd="20dp"-->
-<!--                        android:layout_marginBottom="5dp" />-->
-
-<!--                </LinearLayout>-->
-
-
-<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- Investment Card View-->
             <androidx.cardview.widget.CardView
@@ -201,6 +169,18 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"/>
+
+                    <TextView
+                        android:id="@+id/noInvestmentAccountsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="No investment accounts yet"
+                        android:textSize="18sp"
+                        android:textColor="@color/eerie_black"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
 
                 </LinearLayout>
 
@@ -292,79 +272,6 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-<!--            &lt;!&ndash; Currency View&ndash;&gt;-->
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:id="@+id/cardCurrency"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true"-->
-<!--                android:foreground="?attr/selectableItemBackground">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:padding="16dp">-->
-
-<!--                    &lt;!&ndash; Currency Text &ndash;&gt;-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Currency"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textColor="@color/grey"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center" />-->
-
-<!--                    &lt;!&ndash; Bottom Border &ndash;&gt;-->
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:background="@color/grey"-->
-<!--                        android:layout_marginTop="10dp" />-->
-
-<!--                </LinearLayout>-->
-<!--            </androidx.cardview.widget.CardView>-->
-
-<!--            &lt;!&ndash; Theme View &ndash;&gt;-->
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:id="@+id/cardTheme"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true"-->
-<!--                android:foreground="?attr/selectableItemBackground"-->
-<!--                android:layout_marginBottom="30dp">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:padding="16dp">-->
-
-<!--                    &lt;!&ndash; Theme Text &ndash;&gt;-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Theme"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textColor="@color/grey"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center" />-->
-
-<!--                    &lt;!&ndash; Bottom Border &ndash;&gt;-->
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:background="@color/grey"-->
-<!--                        android:layout_marginTop="10dp" />-->
-
-<!--                </LinearLayout>-->
-<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- Sign Out View -->
             <androidx.cardview.widget.CardView

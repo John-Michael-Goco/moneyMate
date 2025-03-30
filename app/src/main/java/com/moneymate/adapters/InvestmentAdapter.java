@@ -30,9 +30,9 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.In
     @Override
     public void onBindViewHolder(@NonNull InvestmentViewHolder holder, int position) {
         InvestmentModel account = investmentList.get(position);
-        holder.investmentAccountLogo.setImageResource(account.getLogoResId());
-        holder.investmentAccountTitle.setText(account.getTitle());
-        holder.investmentAmountText.setText(account.getAmount());
+        holder.investmentAccountLogo.setImageResource(account.getAccountLogo());
+        holder.investmentAccountTitle.setText(account.getAccountType());
+        holder.investmentAmountText.setText(formatBalance(account.getBalance()));
 
         // Click listener for the action button (can be modified later)
         holder.investmentActionButton.setOnClickListener(v -> {
@@ -56,6 +56,15 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.In
             investmentAccountTitle = itemView.findViewById(R.id.investmentAccountTitle);
             investmentAmountText = itemView.findViewById(R.id.investmentAmountText);
             investmentActionButton = itemView.findViewById(R.id.investmentActionButton);
+        }
+    }
+
+    private String formatBalance(String balance) {
+        try {
+            double amount = Double.parseDouble(balance);
+            return String.format("₱%,.2f", amount);
+        } catch (NumberFormatException e) {
+            return balance;
         }
     }
 }
