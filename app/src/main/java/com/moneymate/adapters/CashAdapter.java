@@ -1,5 +1,7 @@
 package com.moneymate.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +11,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.moneymate.R;
+import com.moneymate.dashboard.ViewAccount;
 import com.moneymate.models.CashModel;
 import java.util.List;
 
 public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashViewHolder> {
 
     private List<CashModel> cashList;
+    private Context context;
 
-    public CashAdapter(List<CashModel> cashList) {
+    public CashAdapter(Context context, List<CashModel> cashList) {
+        this.context = context;
         this.cashList = cashList;
     }
 
@@ -31,12 +36,14 @@ public class CashAdapter extends RecyclerView.Adapter<CashAdapter.CashViewHolder
     public void onBindViewHolder(@NonNull CashViewHolder holder, int position) {
         CashModel account = cashList.get(position);
         holder.cashAccountLogo.setImageResource(account.getAccountLogo());
-        holder.cashAccountTitle.setText(account.getAccountType());
+        holder.cashAccountTitle.setText(account.getAccountName());
         holder.cashAmountText.setText(formatBalance(account.getBalance()));
 
         // Click listener for the action button (can be modified later)
         holder.cashActionButton.setOnClickListener(v -> {
-            // Handle button click
+            Intent intent = new Intent(context, ViewAccount.class);
+            intent.putExtra("accountID", account.getAccountID());
+            context.startActivity(intent);
         });
     }
 

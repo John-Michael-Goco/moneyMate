@@ -51,6 +51,7 @@ public class AccountFragment extends Fragment {
     private InvestmentAdapter investmentAdapter;
     private List<CashModel> cashAccountList;
     private List<InvestmentModel> investmentAccountList;
+    private static final int DELETE_ACCOUNT_REQUEST = 1;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -74,7 +75,7 @@ public class AccountFragment extends Fragment {
         cashRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         cashAccountList = new ArrayList<>();
-        cashAdapter = new CashAdapter(cashAccountList);
+        cashAdapter = new CashAdapter(requireContext(), cashAccountList);
         cashRecyclerView.setAdapter(cashAdapter);
 
         // Initialize Investment Accounts RecyclerView
@@ -82,7 +83,7 @@ public class AccountFragment extends Fragment {
         investmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         investmentAccountList = new ArrayList<>();
-        investmentAdapter = new InvestmentAdapter(investmentAccountList);
+        investmentAdapter = new InvestmentAdapter(requireContext(), investmentAccountList);
         investmentRecyclerView.setAdapter(investmentAdapter);
 
         // For Create New Account
@@ -119,7 +120,7 @@ public class AccountFragment extends Fragment {
             fetchCashAccounts(userID);
             fetchInvestmentAccounts(userID);
             setFetchNetworth(userID);
-        }, 200);
+        }, 250);
     }
 
     private void setFetchNetworth(String userID) {
@@ -136,7 +137,7 @@ public class AccountFragment extends Fragment {
 
                             // Update UI with net worth
                             TextView networthTextView = requireView().findViewById(R.id.networthText);
-                            networthTextView.setText("₱ " + networth);
+                            networthTextView.setText(formatBalance(networth));
                         } else {
                             Toast.makeText(requireContext(), "Failed to fetch net worth", Toast.LENGTH_SHORT).show();
                         }
@@ -285,6 +286,15 @@ public class AccountFragment extends Fragment {
             Intent intent = new Intent(requireActivity(), Login.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+        }
+    }
+
+    private String formatBalance(String balance) {
+        try {
+            double amount = Double.parseDouble(balance);
+            return String.format("₱ %,.2f", amount);
+        } catch (NumberFormatException e) {
+            return balance;
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.moneymate.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.moneymate.R;
+import com.moneymate.dashboard.ViewAccount;
 import com.moneymate.models.InvestmentModel;
 import java.util.List;
 
@@ -16,7 +19,10 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.In
 
     private List<InvestmentModel> investmentList;
 
-    public InvestmentAdapter(List<InvestmentModel> investmentList) {
+    private Context context;
+
+    public InvestmentAdapter(Context context, List<InvestmentModel> investmentList) {
+        this.context = context;
         this.investmentList = investmentList;
     }
 
@@ -31,12 +37,14 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.In
     public void onBindViewHolder(@NonNull InvestmentViewHolder holder, int position) {
         InvestmentModel account = investmentList.get(position);
         holder.investmentAccountLogo.setImageResource(account.getAccountLogo());
-        holder.investmentAccountTitle.setText(account.getAccountType());
+        holder.investmentAccountTitle.setText(account.getAccountName());
         holder.investmentAmountText.setText(formatBalance(account.getBalance()));
 
         // Click listener for the action button (can be modified later)
         holder.investmentActionButton.setOnClickListener(v -> {
-            // Handle button click
+            Intent intent = new Intent(context, ViewAccount.class);
+            intent.putExtra("accountID", account.getAccountID());
+            context.startActivity(intent);
         });
     }
 
