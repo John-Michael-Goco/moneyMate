@@ -5,13 +5,17 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +42,7 @@ import com.moneymate.adapters.InvestmentAdapter;
 import com.moneymate.models.InvestmentModel;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AccountFragment extends Fragment {
@@ -45,13 +50,16 @@ public class AccountFragment extends Fragment {
     private static final String fetchCashAccounts = "http://192.168.1.6/moneymateBackend/fetchCashAccounts.php";
     private static final String fetchInvestmentAccounts = "http://192.168.1.6/moneymateBackend/fetchInvestmentAccounts.php";
     private static final String fetchNetworth = "http://192.168.1.6/moneymateBackend/fetchNetworth.php";
+    private static final String deleteUserAccountURL = "http://192.168.1.6/moneymateBackend/deleteUser.php";
 
     private RecyclerView cashRecyclerView, investmentRecyclerView;
     private CashAdapter cashAdapter;
     private InvestmentAdapter investmentAdapter;
     private List<CashModel> cashAccountList;
     private List<InvestmentModel> investmentAccountList;
-    private static final int DELETE_ACCOUNT_REQUEST = 1;
+    private CardView cardUserProfile, cardCategories, cardSignOut, cardDeleteAccount;
+    private ImageView createAccountBtn;
+    private String userID;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -68,7 +76,7 @@ public class AccountFragment extends Fragment {
 
         // Retrieve user data
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", " ");
+        userID = sharedPreferences.getString("userID", " ");
 
         // Initialize Cash Accounts RecyclerView
         cashRecyclerView = view.findViewById(R.id.cashRecyclerView);
@@ -87,7 +95,7 @@ public class AccountFragment extends Fragment {
         investmentRecyclerView.setAdapter(investmentAdapter);
 
         // For Create New Account
-        ImageView createAccountBtn = view.findViewById(R.id.addAccountBtn);
+        createAccountBtn = view.findViewById(R.id.addAccountBtn);
         createAccountBtn.setOnClickListener(v -> {
             if (getActivity() != null) {
                 Intent intent = new Intent(getActivity(), SelectAccountType.class);
@@ -95,7 +103,7 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        CardView cardUserProfile = view.findViewById(R.id.cardUserProfile);
+        cardUserProfile = view.findViewById(R.id.cardUserProfile);
         cardUserProfile.setOnClickListener(v -> {
             if (getActivity() != null) {
                 Intent intent = new Intent(getActivity(), UserDetails.class);
@@ -103,7 +111,7 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        CardView cardCategories = view.findViewById(R.id.cardCategories);
+        cardCategories = view.findViewById(R.id.cardCategories);
         cardCategories.setOnClickListener(v -> {
             if (getActivity() != null) {
                 Intent intent = new Intent(getActivity(), CategoryViewPager.class);
@@ -112,15 +120,23 @@ public class AccountFragment extends Fragment {
         });
 
         // Logout confirmation before signing out
-        CardView cardSignOut = view.findViewById(R.id.cardSignOut);
+        cardSignOut = view.findViewById(R.id.cardSignOut);
         cardSignOut.setOnClickListener(v -> showLogoutConfirmationDialog());
 
+        // User account deletion confirmation
+        cardDeleteAccount = view.findViewById(R.id.cardDeleteAccount);
+        cardDeleteAccount.setOnClickListener(v -> showDeleteUserAccountDialog(userID));
+
         // Delay Fetching Account Datas
-        new android.os.Handler().postDelayed(() -> {
-            fetchCashAccounts(userID);
-            fetchInvestmentAccounts(userID);
-            setFetchNetworth(userID);
-        }, 250);
+        if (!userID.isEmpty()) {
+            new android.os.Handler().postDelayed(() -> {
+                fetchCashAccounts(userID);
+                fetchInvestmentAccounts(userID);
+                setFetchNetworth(userID);
+            }, 250);
+        } else {
+            Toast.makeText(requireContext(), "User ID is invalid!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setFetchNetworth(String userID) {
@@ -272,6 +288,60 @@ public class AccountFragment extends Fragment {
                 .setPositiveButton("Yes", (dialog, which) -> logoutUser())
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    private void showDeleteUserAccountDialog(String userID) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("User Account Deletion")
+                .setMessage("Are you sure you want to delete your account?")
+                .setPositiveButton("Yes", (dialog, which) -> deleteUserAccount(userID))
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void deleteUserAccount(String userID) {
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+
+        StringRequest request = new StringRequest(Request.Method.POST, deleteUserAccountURL,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        if (jsonResponse.getString("status").equals("success")) {
+                            Toast.makeText(requireContext(), "User account deleted successfully!", Toast.LENGTH_SHORT).show();
+
+                            // Clear user data
+                            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.apply();
+
+                            // Navigate to login page
+                            Intent intent = new Intent(requireActivity(), Login.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            requireActivity().finish();
+
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to delete account.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Log.e("JSONError", "Parsing error: " + e.getMessage());
+                        Toast.makeText(requireContext(), "Error parsing response.", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    Log.e("VolleyError", "Request error: " + error.toString());
+                    Toast.makeText(requireContext(), "Error deleting user account.", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userID", userID);
+                return params;
+            }
+        };
+
+        requestQueue.add(request);
     }
 
     private void logoutUser() {

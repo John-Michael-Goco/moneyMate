@@ -7,6 +7,12 @@
     tools:context=".dashboard.Dashboard">
 
     <!-- Scrollable Layout -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6b1d1d" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -284,7 +290,7 @@
                 app:cardCornerRadius="15dp"
                 app:cardElevation="4dp"
                 android:layout_margin="10dp"
-                android:backgroundTint="#ff1515">
+                android:backgroundTint="#b23b3b">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -298,6 +304,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sign Out"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Sign Out View -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="#6b1d1d">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="10dp">
+
+                    <!-- Sign Out Text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete User Account"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         android:textStyle="bold"

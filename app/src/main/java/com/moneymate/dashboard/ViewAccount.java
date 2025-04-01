@@ -146,13 +146,13 @@ public class ViewAccount extends AppCompatActivity {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         if (jsonResponse.getString("status").equals("success")) {
-                            Toast.makeText(this, "Student deleted successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Account deleted successfully!", Toast.LENGTH_SHORT).show();
                             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                             transaction.replace(R.id.fragmentContainer, new AccountFragment());
                             transaction.addToBackStack(null);
                             transaction.commit();
                         } else {
-                            Toast.makeText(this, "Failed to delete student.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Failed to delete account.", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Log.e("JSONError", "Parsing error: " + e.getMessage());
@@ -161,7 +161,7 @@ public class ViewAccount extends AppCompatActivity {
                 },
                 error -> {
                     Log.e("VolleyError", "Request error: " + error.toString());
-                    Toast.makeText(this, "Error deleting student.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Error deleting account.", Toast.LENGTH_SHORT).show();
                 }) {
             @Override
             protected Map<String, String> getParams() {
