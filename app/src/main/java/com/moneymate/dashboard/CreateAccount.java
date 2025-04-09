@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class CreateAccount extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.1.6/moneymateBackend/createAccount.php";
+    private static final String URL = "http://10.0.2.2/moneymateBackend/createAccount.php";
 
     private TextInputEditText accountTypeInput, accountNameInput, accountNumberInput, currencyInput, balanceInput, logoInput;
     private Button createAccountBtn, backBtn;
@@ -54,7 +54,7 @@ public class CreateAccount extends AppCompatActivity {
 
         // Retrieve data from last page
         String accountType = getIntent().getStringExtra("accountType");
-        int accLogo = getIntent().getIntExtra("accountLogo", R.drawable.logo);
+        accLogo = getIntent().getIntExtra("accountLogo", R.drawable.logo);
 
         // Retrieve user data
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);

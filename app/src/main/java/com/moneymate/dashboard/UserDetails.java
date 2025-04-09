@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class UserDetails extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.1.6/moneymateBackend/updateUser.php";
+    private static final String URL = "http://10.0.2.2/moneymateBackend/updateUser.php";
 
     private TextInputEditText emailInput, first_nameInput, last_nameInput, nicknameInput, passwordInput;
     private Button backBtn, updateUserDetails;

@@ -7,12 +7,6 @@
     tools:context=".dashboard.Dashboard">
 
     <!-- Scrollable Layout -->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6b1d1d" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

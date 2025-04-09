@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     // Database connection check
     private void checkDatabaseConnection() {
-        String url = "http://192.168.1.6/moneymateBackend/checkdbconnection.php";
+        String URL = "http://10.0.2.2/moneymateBackend/checkdbconnection.php";
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        StringRequest request = new StringRequest(Request.Method.GET, url,
+        StringRequest request = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

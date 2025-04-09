@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
-    private static final String URL = "http://192.168.1.6/moneymateBackend/insertUser.php";
+    private static final String URL = "http://10.0.2.2/moneymateBackend/insertUser.php";
 
     // Input fields and buttons
     private TextInputLayout firstName, lastName, nickname, email, password;

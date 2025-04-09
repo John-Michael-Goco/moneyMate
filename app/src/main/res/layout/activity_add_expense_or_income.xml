@@ -27,7 +27,7 @@
             android:textAlignment="center"
             android:textSize="28sp" />
 
-        <!-- Account Name Row -->
+        <!-- Transaction Name-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,24 +38,24 @@
             android:layout_marginBottom="10dp">
 
             <ImageView
-                android:id="@+id/accountNameLogo"
+                android:id="@+id/transactionNameLogo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
                 android:src="@drawable/account_name_logo"
-                android:contentDescription="Account Name Logo"/>
+                android:contentDescription="Amount Logo"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:hint="Account Name"
+                android:hint="Transaction Name"
                 app:boxBackgroundMode="none"
                 android:background="@android:color/transparent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/accountNameText"
+                    android:id="@+id/transactionName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -75,18 +75,99 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <!-- Account Type Input -->
+        <!-- Amount Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginEnd="15dp">
 
             <ImageView
-                android:id="@+id/asdf"
+                android:id="@+id/amountLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/starting_balance_logo"
+                android:contentDescription="Amount Logo"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Amount"
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/amountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/eerie_black"
+                    android:inputType="numberDecimal" />
+
+                <!-- Bottom Border -->
+                <View
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Category Type Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <ImageView
+                android:id="@+id/categoryLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/logo"
+                android:contentDescription="Category Logo" />
+
+            <!-- Category Dropdown with Image -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Select Category"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteCategoryText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Account Type Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <ImageView
+                android:id="@+id/accountLogo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="centerInside"
@@ -99,16 +180,115 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:hint="Select Category"
+                android:hint="Select Account"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
 
                 <AutoCompleteTextView
-                    android:id="@+id/autoCompleteText"
+                    android:id="@+id/autoCompleteAccountText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
+        <!-- Date Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/dateLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/date_logo"
+                android:contentDescription="Date Logo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Date"
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/eerie_black"
+                    android:focusable="false"
+                    android:clickable="true"/>
+
+                <!-- Bottom Border -->
+                <View
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Notes Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/notesLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:src="@drawable/notes_logo"
+                android:contentDescription="Notes Logo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Notes ..."
+                app:boxBackgroundMode="none"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/noteText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/eerie_black" />
+
+                <!-- Bottom Border -->
+                <View
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
         <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -129,7 +309,7 @@
                 android:text="Back" />
 
             <Button
-                android:id="@+id/createAccountBtn"
+                android:id="@+id/createTransacBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

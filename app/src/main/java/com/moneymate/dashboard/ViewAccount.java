@@ -32,8 +32,8 @@ import java.util.Map;
 
 public class ViewAccount extends AppCompatActivity {
 
-    private static final String fetchAccountDetailsURL = "http://192.168.1.6/moneymateBackend/fetchAccountDetails.php";
-    private static final String deleteAccountURL = "http://192.168.1.6/moneymateBackend/deleteAccount.php";
+    private static final String fetchAccountDetailsURL = "http://10.0.2.2/moneymateBackend/fetchAccountDetails.php";
+    private static final String deleteAccountURL = "http://10.0.2.2/moneymateBackend/deleteAccount.php";
 
     private ImageView backBtn, updateBtn, deleteBtn;
 

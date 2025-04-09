@@ -47,10 +47,10 @@ import org.json.JSONObject;
 
 public class AccountFragment extends Fragment {
 
-    private static final String fetchCashAccounts = "http://192.168.1.6/moneymateBackend/fetchCashAccounts.php";
-    private static final String fetchInvestmentAccounts = "http://192.168.1.6/moneymateBackend/fetchInvestmentAccounts.php";
-    private static final String fetchNetworth = "http://192.168.1.6/moneymateBackend/fetchNetworth.php";
-    private static final String deleteUserAccountURL = "http://192.168.1.6/moneymateBackend/deleteUser.php";
+    private static final String fetchCashAccountsURL = "http://10.0.2.2/moneymateBackend/fetchCashAccounts.php";
+    private static final String fetchInvestmentAccountsURL = "http://10.0.2.2/moneymateBackend/fetchInvestmentAccounts.php";
+    private static final String fetchNetworthURL = "http://10.0.2.2/moneymateBackend/fetchNetworth.php";
+    private static final String deleteUserAccountURL = "http://10.0.2.2/moneymateBackend/deleteUser.php";
 
     private RecyclerView cashRecyclerView, investmentRecyclerView;
     private CashAdapter cashAdapter;
@@ -69,7 +69,6 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -138,11 +137,10 @@ public class AccountFragment extends Fragment {
             Toast.makeText(requireContext(), "User ID is invalid!", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void setFetchNetworth(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchNetworth,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchNetworthURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
@@ -179,7 +177,7 @@ public class AccountFragment extends Fragment {
     private void fetchCashAccounts(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchCashAccounts,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchCashAccountsURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
@@ -227,11 +225,10 @@ public class AccountFragment extends Fragment {
 
         requestQueue.add(stringRequest);
     }
-
     private void fetchInvestmentAccounts(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchInvestmentAccounts,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchInvestmentAccountsURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
@@ -280,7 +277,6 @@ public class AccountFragment extends Fragment {
 
         requestQueue.add(stringRequest);
     }
-
     private void showLogoutConfirmationDialog() {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Confirm Logout")
@@ -289,7 +285,6 @@ public class AccountFragment extends Fragment {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
-
     private void showDeleteUserAccountDialog(String userID) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("User Account Deletion")
@@ -298,7 +293,6 @@ public class AccountFragment extends Fragment {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
-
     private void deleteUserAccount(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
 
@@ -343,7 +337,6 @@ public class AccountFragment extends Fragment {
 
         requestQueue.add(request);
     }
-
     private void logoutUser() {
         if (getActivity() != null) {
             // Clear saved user data
@@ -358,7 +351,6 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         }
     }
-
     private String formatBalance(String balance) {
         try {
             double amount = Double.parseDouble(balance);

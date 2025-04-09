@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
-    private static final String URL = "http://192.168.1.6/moneymateBackend/loginUser.php";
+    private static final String URL = "http://10.0.2.2/moneymateBackend/loginUser.php";
 
     private TextInputLayout emailInput, passwordInput;
     private Button signUpButton, forgotBtn, loginBtn;

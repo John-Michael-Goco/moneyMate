@@ -32,8 +32,8 @@ import java.util.Map;
 
 public class EditAccount extends AppCompatActivity {
 
-    private static final String fetchAccountDetails = "http://192.168.1.6/moneymateBackend/fetchAccountDetails.php";
-    private static final String updateAccount = "http://192.168.1.6/moneymateBackend/updateAccount.php";
+    private static final String fetchAccountDetailsURL = "http://10.0.2.2/moneymateBackend/fetchAccountDetails.php";
+    private static final String updateAccountURL = "http://10.0.2.2/moneymateBackend/updateAccount.php";
     private Button backBtn, updateAccountBtn;
     private TextInputEditText accountTypeText, accountNameText, accountNumberText, balanceText;
     private ImageView accountTypeLogo;
@@ -74,7 +74,7 @@ public class EditAccount extends AppCompatActivity {
     private void getAccountDetails(String accountID) {
         RequestQueue requestQueue = Volley.newRequestQueue(EditAccount.this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchAccountDetails,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchAccountDetailsURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
@@ -140,7 +140,7 @@ public class EditAccount extends AppCompatActivity {
         }
 
         // Create the request to update the student
-        StringRequest request = new StringRequest(Request.Method.POST, updateAccount,
+        StringRequest request = new StringRequest(Request.Method.POST, updateAccountURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
