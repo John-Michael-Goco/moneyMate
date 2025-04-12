@@ -251,6 +251,13 @@ public class AddExpenseOrIncome extends AppCompatActivity {
         String accountTypeVal = accountParts.length > 0 ? accountParts[0].trim() : "";
         String accountNameVal = accountParts.length > 1 ? accountParts[1].trim() : "";
 
+        // Validate input fields
+        if (transactionNameVal.isEmpty() || amountVal.isEmpty() || categoryVal.isEmpty() ||
+                accountVal.isEmpty() || dateVal.isEmpty() || noteTextVal.isEmpty()) {
+            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Create the request to create the transaction
         StringRequest request = new StringRequest(Request.Method.POST, createTransacURL,
                 response -> {

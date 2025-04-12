@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".dashboard.SelectAccountType">
+    tools:context=".dashboard.ViewAccount">
 
     <LinearLayout
         android:id="@+id/main"
@@ -166,7 +166,8 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="16dp">
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="5dp">
 
                 <!-- Student List Text -->
                 <TextView
@@ -180,7 +181,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/studentRecyclerView"
+                    android:id="@+id/transactionsRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -188,6 +189,18 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:nestedScrollingEnabled="true" />
+
+                <TextView
+                    android:id="@+id/noTransaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="No Transaction yet"
+                    android:textSize="18sp"
+                    android:textColor="@color/eerie_black"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
         </ScrollView>
