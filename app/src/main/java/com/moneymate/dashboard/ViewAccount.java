@@ -197,7 +197,6 @@ public class ViewAccount extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
-
     private void fetchTransactions(String userID, String accountID) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 

@@ -258,6 +258,18 @@ public class AddExpenseOrIncome extends AppCompatActivity {
             return;
         }
 
+        // Validate Amount
+        try {
+            double amount = Double.parseDouble(amountVal);
+            if (amount <= 0) {
+                Toast.makeText(this, "Enter a valid positive amount.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Amount must be a number.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Create the request to create the transaction
         StringRequest request = new StringRequest(Request.Method.POST, createTransacURL,
                 response -> {

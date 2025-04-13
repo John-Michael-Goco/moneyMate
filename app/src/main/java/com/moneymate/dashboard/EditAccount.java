@@ -149,9 +149,7 @@ public class EditAccount extends AppCompatActivity {
 
                         if ("success".equals(status)) {
                             Toast.makeText(EditAccount.this, "Account Successfully Updated!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(EditAccount.this, ViewAccount.class);
-                            intent.putExtra("accountID", accountID);
-                            startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(EditAccount.this, message, Toast.LENGTH_LONG).show();
                         }

@@ -106,6 +106,15 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        // Set click listener to go to Transfer page
+        transferFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, Transfer.class);
+                startActivity(intent);
+            }
+        });
+
         // Set up a listener for navigation item selection
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

@@ -1,6 +1,7 @@
 package com.moneymate.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moneymate.R;
+import com.moneymate.dashboard.ViewAccount;
+import com.moneymate.dashboard.ViewTransaction;
 import com.moneymate.models.TransactionsModel;
 
 import java.util.HashMap;
@@ -62,8 +65,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
         // Optional: Set click action on the arrow button
         holder.transactionBtn.setOnClickListener(v -> {
-            // You can pass transaction ID or data to another activity
-            // Example: open detailed view (create ViewTransaction activity if needed)
+            Intent intent = new Intent(context, ViewTransaction.class);
+            intent.putExtra("transactionID", transaction.getTransactionID());
+            context.startActivity(intent);
         });
     }
 
@@ -114,6 +118,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         logos.put("Savings", R.drawable.salary_ic);
         logos.put("Retirement", R.drawable.retirement_ic);
         logos.put("Others", R.drawable.others_ic);
+        logos.put("Transfer", R.drawable.transfer);
 
         return logos.getOrDefault(category, R.drawable.logo);
     }
