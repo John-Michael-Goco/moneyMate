@@ -175,6 +175,14 @@ public class Dashboard extends AppCompatActivity {
                 hideFab(addExpenseFab, addExpenseTv);
             }
         });
+
+        String fragmentToOpen = getIntent().getStringExtra("fragmentToOpen");
+        if ("Transactions".equals(fragmentToOpen)) {
+            bottomNavigationView.setSelectedItemId(R.id.menuTransactions);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new TransactionFragment())
+                    .commit();
+        }
     }
 
     // Function to show FAB and label

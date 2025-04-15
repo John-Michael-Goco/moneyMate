@@ -20,8 +20,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.moneymate.R;
-import com.moneymate.auth.ForgotPasswordEmail;
-import com.moneymate.auth.NewPassword;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,12 +64,7 @@ public class ViewTransaction extends AppCompatActivity {
         getTransactionDetails(transactionID, accountID);
 
         // Handle Back Button
-        backBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(ViewTransaction.this, ViewAccount.class);
-            intent.putExtra("accountID", accountID);
-            startActivity(intent);
-            finish();
-        });
+        backBtn.setOnClickListener(v -> goBackToPreviousScreen(accountID));
 
         // Handle Delete Button
         deleteBtn.setOnClickListener(v -> showDeleteConfirmationDialog(transactionID, accountID));
@@ -211,10 +204,7 @@ public class ViewTransaction extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         if (jsonResponse.getString("status").equals("success")) {
                             Toast.makeText(this, "Transaction deleted successfully!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ViewTransaction.this, ViewAccount.class);
-                            intent.putExtra("accountID", accountID);
-                            startActivity(intent);
-                            finish();
+                            goBackToPreviousScreen(accountID);
                         } else {
                             Toast.makeText(this, "Failed to delete transaction.", Toast.LENGTH_SHORT).show();
                         }
@@ -237,5 +227,17 @@ public class ViewTransaction extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
+    }
+    private void goBackToPreviousScreen(String accountID) {
+        if ("0".equals(accountID)) {
+            Intent intent = new Intent(ViewTransaction.this, Dashboard.class);
+            intent.putExtra("fragmentToOpen", "Transactions");
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(ViewTransaction.this, ViewAccount.class);
+            intent.putExtra("accountID", accountID);
+            startActivity(intent);
+        }
+        finish();
     }
 }

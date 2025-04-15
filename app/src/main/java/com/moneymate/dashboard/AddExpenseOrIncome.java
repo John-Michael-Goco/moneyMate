@@ -1,6 +1,7 @@
 package com.moneymate.dashboard;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -130,7 +131,11 @@ public class AddExpenseOrIncome extends AppCompatActivity {
 
         // Create Transaction
         createTransacBtn = findViewById(R.id.createTransacBtn);
-        createTransacBtn.setOnClickListener(v -> createTransaction(userID));
+        createTransacBtn.setOnClickListener(v -> {
+            createTransaction(userID);
+            createTransacBtn.setEnabled(false);
+            createTransacBtn.postDelayed(() -> createTransacBtn.setEnabled(true), 1500);
+        });
     }
 
     private void fetchAccounts(String userID) {
@@ -142,23 +147,25 @@ public class AddExpenseOrIncome extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray accountsArray = jsonResponse.getJSONArray("accounts");
 
-                        accountNames.clear(); // Clear the existing account names
+                        accountNames.clear(); // Clear existing account names
 
-                        for (int i = 0; i < accountsArray.length(); i++) {
-                            JSONObject accountObject = accountsArray.getJSONObject(i);
-                            String accountName = accountObject.getString("account_name");
-                            String accountType = accountObject.getString("account_type");
-
-                            // Add the account name to the list
-                            accountNames.add(accountType + " | " + accountName);
+                        if (accountsArray.length() == 0) {
+                            // No accounts found
+                            accountNames.add("No accounts yet");
+                            autoCompleteTextViewAccount.setEnabled(false); // Disable input
+                        } else {
+                            // Accounts available
+                            for (int i = 0; i < accountsArray.length(); i++) {
+                                JSONObject accountObject = accountsArray.getJSONObject(i);
+                                String accountName = accountObject.getString("account_name");
+                                String accountType = accountObject.getString("account_type");
+                                accountNames.add(accountType + " | " + accountName);
+                            }
+                            autoCompleteTextViewAccount.setEnabled(true); // Enable input
                         }
 
-                        // Create a new ArrayAdapter for AutoCompleteTextView
                         ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(AddExpenseOrIncome.this, R.layout.dropdown_item, accountNames);
-
-                        // Set the adapter for AutoCompleteTextView
-                        AutoCompleteTextView accountAutoCompleteTextView = findViewById(R.id.autoCompleteAccountText);
-                        accountAutoCompleteTextView.setAdapter(accountAdapter);
+                        autoCompleteTextViewAccount.setAdapter(accountAdapter);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -280,6 +287,9 @@ public class AddExpenseOrIncome extends AppCompatActivity {
 
                         if ("success".equals(status)) {
                             Toast.makeText(this, "Transaction Created Successfully!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddExpenseOrIncome.this, Dashboard.class);
+                            intent.putExtra("fragmentToOpen", "Transactions");
+                            startActivity(intent);
                             finish();
                         } else {
                             if (message.toLowerCase().contains("insufficient")) {

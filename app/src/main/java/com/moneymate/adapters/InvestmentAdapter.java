@@ -18,7 +18,6 @@ import java.util.List;
 public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.InvestmentViewHolder> {
 
     private List<InvestmentModel> investmentList;
-
     private Context context;
 
     public InvestmentAdapter(Context context, List<InvestmentModel> investmentList) {

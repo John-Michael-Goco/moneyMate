@@ -1,6 +1,7 @@
 package com.moneymate.dashboard;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -107,7 +108,11 @@ public class Transfer extends AppCompatActivity {
 
         // Handle Create Transfer
         createTransfer = findViewById(R.id.createTransfer);
-        createTransfer.setOnClickListener(v -> createTransaction(userID));
+        createTransfer.setOnClickListener(v -> {
+            createTransaction(userID);
+            createTransfer.setEnabled(false);
+            createTransfer.postDelayed(() -> createTransfer.setEnabled(true), 1500);
+        });
     }
 
     private void fetchAccounts(String userID) {
@@ -119,23 +124,28 @@ public class Transfer extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray accountsArray = jsonResponse.getJSONArray("accounts");
 
-                        accountNames.clear(); // Clear the existing account names
+                        accountNames.clear(); // Clear existing account names
 
-                        for (int i = 0; i < accountsArray.length(); i++) {
-                            JSONObject accountObject = accountsArray.getJSONObject(i);
-                            String accountName = accountObject.getString("account_name");
-                            String accountType = accountObject.getString("account_type");
-
-                            // Add the account name to the list
-                            accountNames.add(accountType + " | " + accountName);
+                        if (accountsArray.length() == 0) {
+                            // No accounts found
+                            accountNames.add("No accounts yet");
+                            autoCompleteTextTo.setEnabled(false);
+                            autoCompleteTextFrom.setEnabled(false);
+                        } else {
+                            // Accounts available
+                            for (int i = 0; i < accountsArray.length(); i++) {
+                                JSONObject accountObject = accountsArray.getJSONObject(i);
+                                String accountName = accountObject.getString("account_name");
+                                String accountType = accountObject.getString("account_type");
+                                accountNames.add(accountType + " | " + accountName);
+                            }
+                            autoCompleteTextTo.setEnabled(true);
+                            autoCompleteTextFrom.setEnabled(true);
                         }
 
-                        // Create a new ArrayAdapter for both AutoCompleteTextViews
                         ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(Transfer.this, R.layout.dropdown_item, accountNames);
-
-                        // Set the adapter for both dropdowns
-                        autoCompleteTextFrom.setAdapter(accountAdapter);
                         autoCompleteTextTo.setAdapter(accountAdapter);
+                        autoCompleteTextFrom.setAdapter(accountAdapter);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -242,6 +252,9 @@ public class Transfer extends AppCompatActivity {
 
                         if ("success".equals(status)) {
                             Toast.makeText(this, "Transfer Created Successfully!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Transfer.this, Dashboard.class);
+                            intent.putExtra("fragmentToOpen", "Transactions");
+                            startActivity(intent);
                             finish();
                         } else {
                             if (message.toLowerCase().contains("insufficient")) {

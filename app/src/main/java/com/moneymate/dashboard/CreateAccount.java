@@ -78,7 +78,11 @@ public class CreateAccount extends AppCompatActivity {
 
         // Handle Create Account button
         createAccountBtn = findViewById(R.id.createAccountBtn);
-        createAccountBtn.setOnClickListener(v -> createAccount(userID, accLogo));
+        createAccountBtn.setOnClickListener(v -> {
+            createAccount(userID, accLogo);
+            createAccountBtn.setEnabled(false);
+            createAccountBtn.postDelayed(() -> createAccountBtn.setEnabled(true), 1500);
+        });
     }
 
     private void createAccount(String userID, int accLogo) {
