@@ -3,6 +3,7 @@ package com.moneymate.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.moneymate.R;
+import com.moneymate.auth.ForgotPasswordEmail;
+import com.moneymate.auth.NewPassword;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +33,7 @@ import java.util.Map;
 
 public class ViewTransaction extends AppCompatActivity {
     private static final String fetchTransactionDataURL = "http://10.0.2.2/moneymateBackend/fetchTransactionDetails.php";
-    private static final String deleteTransactionURL = "http://10.0.2.2/moneymateBackend/deleteAccount.php";
+    private static final String deleteTransactionURL = "http://10.0.2.2/moneymateBackend/deleteTransaction.php";
     private ImageView backBtn, editBtn, deleteBtn, categoryLogo;
     private TextView account, transactionName, dateText, amountText, categoryTypeText, categoryText, notesText;
     @Override
@@ -57,28 +60,42 @@ public class ViewTransaction extends AppCompatActivity {
             return insets;
         });
 
-        // Get the account ID from intent and fetch Transaction Data
+        // Get the IDs from intent and fetch Transaction Data
         String transactionID = getIntent().getStringExtra("transactionID");
-        getTransactionDetails(transactionID);
+        String accountID = getIntent().getStringExtra("accountID");
+        getTransactionDetails(transactionID, accountID);
 
         // Handle Back Button
-        backBtn.setOnClickListener(v -> finish());
+        backBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewTransaction.this, ViewAccount.class);
+            intent.putExtra("accountID", accountID);
+            startActivity(intent);
+            finish();
+        });
+
         // Handle Delete Button
-        deleteBtn.setOnClickListener(v -> showDeleteConfirmationDialog(getIntent().getStringExtra("transactionID")));
+        deleteBtn.setOnClickListener(v -> showDeleteConfirmationDialog(transactionID, accountID));
+
         // Handle Edit Button
-        editBtn.setOnClickListener(v -> finish()); // change
+        editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewTransaction.this, EditTransaction.class);
+            intent.putExtra("transactionID", transactionID);
+            intent.putExtra("accountID", accountID);
+            startActivity(intent);
+            finish();
+        });
     }
-    private void showDeleteConfirmationDialog(String transactionID) {
+    private void showDeleteConfirmationDialog(String transactionID, String accountID) {
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Confirm Deletion")
                 .setMessage("Are you sure you want to delete this entry?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    deleteAccount(transactionID);
+                    deleteTransaction(transactionID, accountID);
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
-    private void getTransactionDetails(String transactionID) {
+    private void getTransactionDetails(String transactionID, String accountID) {
         RequestQueue requestQueue = Volley.newRequestQueue(ViewTransaction.this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchTransactionDataURL,
@@ -130,13 +147,22 @@ public class ViewTransaction extends AppCompatActivity {
                             account.setText(account_type + " | " + account_name);
                             transactionName.setText(transaction_name);
                             dateText.setText(formattedDate);
-                            amountText.setText(formattedAmount);
                             categoryTypeText.setText(capitalizedType);
                             categoryText.setText(category);
                             notesText.setText(notes);
 
                             int logoResId = getCategoryLogo(category);
                             categoryLogo.setImageResource(logoResId);
+
+                            // Handle Edit Btn
+                            if (category.equalsIgnoreCase("Transfer")) {
+                                editBtn.setVisibility(View.INVISIBLE);
+                                deleteBtn.setVisibility(View.INVISIBLE);
+                            } else {
+                                editBtn.setVisibility(View.VISIBLE);
+                                deleteBtn.setVisibility(View.VISIBLE);
+                            }
+
                         } else {
                             Toast.makeText(ViewTransaction.this, "Failed to fetch transaction details", Toast.LENGTH_SHORT).show();
                         }
@@ -178,13 +204,16 @@ public class ViewTransaction extends AppCompatActivity {
 
         return logos.getOrDefault(category, R.drawable.logo);
     }
-    private void deleteAccount(String transactionID) {
+    private void deleteTransaction(String transactionID, String accountID) {
         StringRequest request = new StringRequest(Request.Method.POST, deleteTransactionURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         if (jsonResponse.getString("status").equals("success")) {
                             Toast.makeText(this, "Transaction deleted successfully!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ViewTransaction.this, ViewAccount.class);
+                            intent.putExtra("accountID", accountID);
+                            startActivity(intent);
                             finish();
                         } else {
                             Toast.makeText(this, "Failed to delete transaction.", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.moneymate.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -67,7 +68,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         holder.transactionBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, ViewTransaction.class);
             intent.putExtra("transactionID", transaction.getTransactionID());
+            intent.putExtra("accountID", transaction.getAccountID());
             context.startActivity(intent);
+            ((Activity) context).finish();
         });
     }
 

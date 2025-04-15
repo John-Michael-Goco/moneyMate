@@ -54,7 +54,8 @@
           android:contentDescription="Edit Button"
           android:background="?attr/selectableItemBackground"
           android:layout_marginEnd="16dp"
-          app:tint="@color/cerulean"/>
+          app:tint="@color/cerulean"
+          android:visibility="invisible"/>
 
       <!-- Delete Button -->
       <ImageView

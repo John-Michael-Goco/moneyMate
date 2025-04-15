@@ -65,6 +65,10 @@ public class ViewAccount extends AppCompatActivity {
         String accountID = getIntent().getStringExtra("accountID");
         getAccountDetails(accountID);
 
+        // Retrieve user data
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "1");
+
         // Handle back button
         backBtn = findViewById(R.id.backBtn);
         backBtn.setOnClickListener(v -> finish());
@@ -74,6 +78,7 @@ public class ViewAccount extends AppCompatActivity {
             Intent intent = new Intent(ViewAccount.this, EditAccount.class);
             intent.putExtra("accountID", accountID);
             startActivity(intent);
+            finish();
         });
 
         // Handle Delete Button
@@ -85,10 +90,6 @@ public class ViewAccount extends AppCompatActivity {
         transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         transactionsAdapter = new TransactionsAdapter(this, transactionsList);
         transactionsRecyclerView.setAdapter(transactionsAdapter);
-
-        // Retrieve user data
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", "1");
 
         // Fetch Transactions
         fetchTransactions(userID, accountID);
@@ -216,7 +217,7 @@ public class ViewAccount extends AppCompatActivity {
                             String transactionType = accountObject.getString("transaction_type");
                             String transactionDate = accountObject.getString("transaction_date");
 
-                            transactionsList.add(new TransactionsModel(transactionID, transaction_name, amount, category, transactionType, transactionDate));
+                            transactionsList.add(new TransactionsModel(transactionID, accountID, transaction_name, amount, category, transactionType, transactionDate));
                         }
                         transactionsAdapter.notifyDataSetChanged();
 
