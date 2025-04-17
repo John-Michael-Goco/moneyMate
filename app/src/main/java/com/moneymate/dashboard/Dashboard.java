@@ -182,6 +182,16 @@ public class Dashboard extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new TransactionFragment())
                     .commit();
+        } else if ("Budget".equals(fragmentToOpen)) {
+            bottomNavigationView.setSelectedItemId(R.id.menuBudget);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new BudgetFragment())
+                    .commit();
+        } else if ("Bills".equals(fragmentToOpen)) {
+            bottomNavigationView.setSelectedItemId(R.id.menuBills);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new BillsFragment())
+                    .commit();
         }
     }
 

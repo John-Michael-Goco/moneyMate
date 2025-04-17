@@ -288,7 +288,7 @@ public class EditTransaction extends AppCompatActivity {
 
         // Validate input fields
         if (transactionNameVal.isEmpty() || amountVal.isEmpty() || categoryVal.isEmpty() ||
-                accountVal.isEmpty() || dateVal.isEmpty() || noteTextVal.isEmpty()) {
+                accountVal.isEmpty() || dateVal.isEmpty()) {
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
             return;
         }

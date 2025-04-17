@@ -17,13 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".dashboard.EditTransfer"
+            android:name=".dashboard.CreateBudget"
             android:exported="false" />
         <activity
             android:name=".dashboard.EditTransaction"
-            android:exported="false" />
-        <activity
-            android:name=".dashboard.UpdateTransaction"
             android:exported="false" />
         <activity
             android:name=".dashboard.ViewTransaction"
