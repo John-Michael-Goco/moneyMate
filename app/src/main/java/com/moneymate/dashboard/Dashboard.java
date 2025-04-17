@@ -192,6 +192,11 @@ public class Dashboard extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new BillsFragment())
                     .commit();
+        } else if ("Account".equals(fragmentToOpen)) {
+            bottomNavigationView.setSelectedItemId(R.id.menuAccount);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new AccountFragment())
+                    .commit();
         }
     }
 

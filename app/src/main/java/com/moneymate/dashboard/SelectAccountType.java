@@ -47,5 +47,6 @@ public class SelectAccountType extends AppCompatActivity {
         intent.putExtra("accountType", accountType);
         intent.putExtra("accountLogo", accountLogo);
         startActivity(intent);
+        finish();
     }
 }
