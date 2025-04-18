@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".dashboard.EditBudget"
+            android:exported="false" />
+        <activity
+            android:name=".dashboard.ViewBudget"
+            android:exported="false" />
+        <activity
             android:name=".dashboard.CreateBudget"
             android:exported="false" />
         <activity

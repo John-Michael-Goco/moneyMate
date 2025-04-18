@@ -118,6 +118,9 @@ public class UserDetails extends AppCompatActivity {
                             SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("password", passwordVal);
+                            editor.putString("first_name", firstNameVal);
+                            editor.putString("last_name", lastNameVal);
+                            editor.putString("nickname", nicknameVal);
                             editor.apply();
 
                         } else {

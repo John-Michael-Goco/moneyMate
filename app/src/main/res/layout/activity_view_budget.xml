@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".dashboard.ViewBudget">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:gravity="center_horizontal">
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <!-- Back Button (Left) -->
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/arrow_left"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Back Button"
+                android:background="?attr/selectableItemBackground" />
+
+            <!-- Spacer (for centering the title) -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="1" />
+
+            <!-- Edit Button -->
+            <ImageView
+                android:id="@+id/editBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/edit_ic"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Edit Button"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginEnd="16dp"
+                app:tint="@color/cerulean"/>
+
+            <!-- Delete Button -->
+            <ImageView
+                android:id="@+id/deleteBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/delete_ic"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Delete Button"
+                android:background="?attr/selectableItemBackground"
+                app:tint="@color/red"/>
+
+        </LinearLayout>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="Budget Details"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <!-- Card Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <!-- Bank Logo -->
+                <ImageView
+                    android:id="@+id/budgetLogo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/logo"
+                    android:contentDescription="BudgetLogo"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/budgetNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="Budget Name"
+                android:textAlignment="center"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/categoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="Category"
+                android:textAlignment="center"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/createdAtText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="April 2025"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:progressDrawable="@drawable/progress_bar_design"
+                android:max="100"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"/>
+
+            <!-- Progress Text Overlay -->
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="750 of 1000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey"
+                android:layout_centerInParent="true"/>
+
+        </LinearLayout>
+
+        <!-- Horizontal Divider-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey"
+            android:layout_marginHorizontal="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:text="Transactions"
+            android:textColor="@color/grey"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transactionsRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/noTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="No Transaction yet"
+            android:textSize="18sp"
+            android:textColor="@color/eerie_black"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>

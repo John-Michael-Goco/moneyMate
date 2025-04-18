@@ -64,7 +64,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         // Set transaction logo based on category
         holder.transactionLogo.setImageResource(getCategoryLogo(transaction.getCategory()));
 
-        // Optional: Set click action on the arrow button
+        // Set click action on the arrow button
         holder.transactionBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, ViewTransaction.class);
             intent.putExtra("transactionID", transaction.getTransactionID());

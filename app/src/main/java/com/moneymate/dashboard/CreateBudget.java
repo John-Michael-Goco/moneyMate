@@ -84,7 +84,7 @@ public class CreateBudget extends AppCompatActivity {
         // Handle Back Button
         backBtn.setOnClickListener(v -> finish());
 
-        // Create Transaction
+        // Create Budget
         createBudgetBtn.setOnClickListener(v -> {
             createBudget(userID);
             createBudgetBtn.setEnabled(false);

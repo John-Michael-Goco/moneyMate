@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moneymate.R;
+import com.moneymate.dashboard.ViewBudget;
 import com.moneymate.dashboard.ViewTransaction;
 import com.moneymate.models.BudgetModel;
 
@@ -63,6 +64,13 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
 
         // category logo based on category name
         holder.categoryLogo.setImageResource(getCategoryLogo(budget.getBudgetCategory()));
+
+        // Set click action on the arrow button
+        holder.budgetBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ViewBudget.class);
+            intent.putExtra("budgetID", budget.getBudgetID());
+            context.startActivity(intent);
+        });
     }
 
     @Override
