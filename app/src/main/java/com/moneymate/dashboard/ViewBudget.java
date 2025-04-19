@@ -80,7 +80,12 @@ public class ViewBudget extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         // Handle Back Button
-        backBtn.setOnClickListener(v -> finish());
+        backBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewBudget.this, Dashboard.class);
+            intent.putExtra("fragmentToOpen", "Budget");
+            startActivity(intent);
+            finish();
+        });
         // Handle Edit Button
         editBtn.setOnClickListener(v -> {
             Intent intent = new Intent(ViewBudget.this, EditBudget.class);

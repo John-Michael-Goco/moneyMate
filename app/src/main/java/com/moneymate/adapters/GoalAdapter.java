@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moneymate.R;
-import com.moneymate.dashboard.ViewBudget;
+import com.moneymate.dashboard.ViewGoal;
 import com.moneymate.models.GoalModel;
 
 import java.text.SimpleDateFormat;
@@ -45,7 +45,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         // Format and compare date
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM d yyyy");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd yyyy");
 
             // Parse the goal date
             String goalDateStr = goal.getGoalDate();
@@ -59,13 +59,13 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             if ("Ongoing".equals(goal.getGoalCompletion())) {
                 java.util.Date today = new java.util.Date();
                 if (goalDate.before(today)) {
-                    // If the goal date has passed, set the text color to red
                     holder.goalDate.setTextColor(context.getResources().getColor(R.color.red, null));
                 } else {
                     holder.goalDate.setTextColor(context.getResources().getColor(R.color.cerulean, null));
                 }
             } else {
                 holder.goalDate.setTextColor(context.getResources().getColor(R.color.green, null));
+                holder.goalDate.setText(goal.getGoalCompletion());
             }
         } catch (Exception e) {
             holder.goalDate.setText(goal.getGoalDate());
@@ -76,13 +76,22 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         double accountAmount = goal.getAccountAmount();
         double goalAmount = goal.getGoalAmount();
         int progress = goalAmount == 0 ? 0 : (int) ((accountAmount / goalAmount) * 100);
+
+        // Force full bar if goal is complete
+        if ("Complete".equalsIgnoreCase(goal.getGoalCompletion())) {
+            progress = 100;
+        }
+
         if (progress > 100) progress = 100;
 
         holder.progressBar.setProgress(progress);
         holder.progressText.setText("₱" + accountAmount + " of ₱" + goalAmount);
 
-        // Change color based on budget usage
-        if (accountAmount > goalAmount) {
+        // Change color based on goal status
+        if ("Complete".equalsIgnoreCase(goal.getGoalCompletion())) {
+            holder.progressBar.setProgressTintList(context.getResources().getColorStateList(R.color.green, null));
+            holder.progressText.setText("₱" + goalAmount + " of ₱" + goalAmount);
+        } else if (accountAmount >= goalAmount) {
             holder.progressBar.setProgressTintList(context.getResources().getColorStateList(R.color.green, null));
         } else {
             holder.progressBar.setProgressTintList(context.getResources().getColorStateList(R.color.cerulean, null));
@@ -90,11 +99,12 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
         // Set click action on the arrow button
         holder.goalBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ViewBudget.class);
+            Intent intent = new Intent(context, ViewGoal.class);
             intent.putExtra("goalID", goal.getGoalID());
             context.startActivity(intent);
         });
     }
+
     @Override
     public int getItemCount() {
         return goalsList.size();

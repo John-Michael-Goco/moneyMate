@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".dashboard.EditGoals"
+            android:exported="false" />
+        <activity
+            android:name=".dashboard.ViewGoal"
+            android:exported="false" />
+        <activity
             android:name=".dashboard.CreateGoal"
             android:exported="false" />
         <activity

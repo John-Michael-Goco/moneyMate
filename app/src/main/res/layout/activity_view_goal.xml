@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".dashboard.ViewBudget">
+    tools:context=".dashboard.ViewGoal">
 
     <LinearLayout
         android:id="@+id/main"
@@ -45,6 +45,19 @@
 
             <!-- Edit Button -->
             <ImageView
+                android:id="@+id/markCompleteBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/check_ic"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Check Button"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/green"/>
+
+            <!-- Edit Button -->
+            <ImageView
                 android:id="@+id/editBtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -53,7 +66,7 @@
                 android:focusable="true"
                 android:contentDescription="Edit Button"
                 android:background="?attr/selectableItemBackground"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="5dp"
                 app:tint="@color/cerulean"/>
 
             <!-- Delete Button -->
@@ -75,10 +88,10 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="Budget Details"
+            android:text="Goal Details"
             android:textAlignment="center"
             android:textSize="30sp" />
 
@@ -92,49 +105,35 @@
             android:gravity="center_horizontal"
             android:layout_marginBottom="15dp">
 
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-
-                <!-- Bank Logo -->
-                <ImageView
-                    android:id="@+id/budgetLogo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/logo"
-                    android:contentDescription="BudgetLogo"/>
-            </LinearLayout>
-
             <TextView
-                android:id="@+id/budgetNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:text="Budget Name"
-                android:textAlignment="center"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/categoryText"
+                android:id="@+id/goalNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
-                android:text="Category"
+                android:text="Goal Name"
                 android:textAlignment="center"
                 android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/createdAtText"
+                android:id="@+id/accountNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
-                android:text="April 2025"
+                android:text="Account Name"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/goalStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center"
+                android:text="Ongoing / Complete"
                 android:textAlignment="center"
                 android:textSize="16sp" />
 
@@ -164,45 +163,35 @@
                     android:textColor="@color/grey" />
             </FrameLayout>
 
+            <!-- Created at and Target Date Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/createdAtText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Apr 16 2025"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/poppins_semibold" />
+
+                <TextView
+                    android:id="@+id/goalDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apr 16 2025"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/poppins_semibold"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-        <!-- Horizontal Divider-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/grey"
-            android:layout_marginHorizontal="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center"
-            android:text="Transactions"
-            android:textColor="@color/grey"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/transactionsRV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
-
-        <TextView
-            android:id="@+id/noTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="No Transaction yet"
-            android:textSize="18sp"
-            android:textColor="@color/eerie_black"
-            android:visibility="gone"
-            android:gravity="center"
-            android:layout_gravity="center" />
     </LinearLayout>
 
 </LinearLayout>

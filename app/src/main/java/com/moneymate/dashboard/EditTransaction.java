@@ -180,7 +180,8 @@ public class EditTransaction extends AppCompatActivity {
                             transactionNameInput.setText(transaction_name);
                             dateText.setText(transaction_date);
                             noteTextInput.setText(notes);
-                            autoCompleteTextViewAccount.setText(account_type + " | " + account_name);
+                            autoCompleteTextViewAccount.setText(account_type + " | " + account_name, false);
+
                             autoCompleteTextViewCategory.setText(category);
                             amountInput.setText(amount);
 

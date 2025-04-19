@@ -97,7 +97,7 @@ public class EditAccount extends AppCompatActivity {
                             accountNameText = findViewById(R.id.accountNameText);
                             accountNumberText = findViewById(R.id.accountNumberText);
                             balanceText = findViewById(R.id.balanceText);
-                            accountTypeLogo = findViewById(R.id.accountNameLogo);
+                            accountTypeLogo = findViewById(R.id.accountLogoImage);
 
                             // Convert the string logo ID to an integer resource ID
                             int accountLogoResID = getResources().getIdentifier(account_logo, "drawable", getPackageName());

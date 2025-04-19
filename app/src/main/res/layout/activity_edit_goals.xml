@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:padding="20dp"
         android:gravity="center_horizontal"
-        tools:context=".dashboard.CreateGoal">
+        tools:context=".dashboard.EditGoals">
 
         <TextView
             android:id="@+id/title"
@@ -23,7 +23,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="Create Goal"
+            android:text="Update Goal"
             android:textAlignment="center"
             android:textSize="28sp" />
 
@@ -228,11 +228,11 @@
                 android:text="Back" />
 
             <Button
-                android:id="@+id/createGoalBtn"
+                android:id="@+id/updateGoalBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Create"
+                android:text="Update"
                 android:backgroundTint="@color/light_green"
                 android:layout_marginLeft="7.5dp" />
         </LinearLayout>
