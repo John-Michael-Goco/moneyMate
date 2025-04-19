@@ -1,9 +1,11 @@
 package com.moneymate.dashboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,29 +17,40 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.moneymate.R;
+import com.moneymate.adapters.TransactionsAdapter;
+import com.moneymate.models.TransactionsModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class ViewBudget extends AppCompatActivity {
     private static final String fetchBudgetDetailsURL = "http://10.0.2.2/moneymateBackend/fetchBudgetDetails.php";
     private static final String deleteBudgetURL = "http://10.0.2.2/moneymateBackend/deleteBudget.php";
+    private static final String fetchTransactionsURL = "http://10.0.2.2/moneymateBackend/fetchBudgetTransactions.php";
     private ImageView backBtn, editBtn, deleteBtn, budgetLogo;
     private TextView budgetNameText, categoryText, createdAtText, progressText;
     private ProgressBar progressBar;
+    private RecyclerView transactionsRecyclerView;
+    private List<TransactionsModel> transactionsList = new ArrayList<>();
+    private TransactionsAdapter transactionsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +63,9 @@ public class ViewBudget extends AppCompatActivity {
             return insets;
         });
 
-        // Get budgetID from intent
+        // Get necessary IDs
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "1");
         String budgetID = getIntent().getStringExtra("budgetID");
 
         // UI references
@@ -66,7 +81,6 @@ public class ViewBudget extends AppCompatActivity {
 
         // Handle Back Button
         backBtn.setOnClickListener(v -> finish());
-
         // Handle Edit Button
         editBtn.setOnClickListener(v -> {
             Intent intent = new Intent(ViewBudget.this, EditBudget.class);
@@ -74,12 +88,16 @@ public class ViewBudget extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
-        // Handle Edit Button
+        // Handle delete Button
         deleteBtn.setOnClickListener(v -> showDeleteConfirmationDialog(budgetID));
-
         // Fetch data
         getBudgetDetails(budgetID);
+
+        transactionsRecyclerView = findViewById(R.id.transactionsRV);
+        transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(ViewBudget.this));
+        transactionsAdapter = new TransactionsAdapter(ViewBudget.this, transactionsList);
+        transactionsRecyclerView.setAdapter(transactionsAdapter);
+        fetchTransactions(userID, budgetID);
     }
 
     private void getBudgetDetails(String budget_id) {
@@ -113,7 +131,7 @@ public class ViewBudget extends AppCompatActivity {
                             budgetLogo.setImageResource(getCategoryLogo(category));
 
                             NumberFormat currency = NumberFormat.getCurrencyInstance(new Locale("en", "PH"));
-                            progressText.setText(currency.format(totalSpent) + " of " + currency.format(amount));
+                            progressText.setText(String.format("%s of %s", currency.format(totalSpent), currency.format(amount)));
 
                             int progress = (int) ((totalSpent / amount) * 100);
                             if (progress > 100) progress = 100;
@@ -203,5 +221,54 @@ public class ViewBudget extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
+    }
+    private void fetchTransactions(String userID, String budgetID) {
+
+        String accountID = "0";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchTransactionsURL,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        JSONArray accountsArray = jsonResponse.getJSONArray("transactions");
+                        transactionsList.clear();
+
+                        for (int i = 0; i < accountsArray.length(); i++) {
+                            JSONObject accountObject = accountsArray.getJSONObject(i);
+                            String transactionID = accountObject.getString("transactionID");
+                            String transaction_name = accountObject.getString("transaction_name");
+                            String amount = accountObject.getString("amount");
+                            String category = accountObject.getString("category");
+                            String transactionType = accountObject.getString("transaction_type");
+                            String transactionDate = accountObject.getString("transaction_date");
+
+                            transactionsList.add(new TransactionsModel(transactionID, accountID, transaction_name, amount, category, transactionType, transactionDate));
+                        }
+                        transactionsAdapter.notifyDataSetChanged();
+
+                        // Show/hide "No accounts yet" message
+                        TextView noTransaction = this.findViewById(R.id.noTransaction);
+                        noTransaction.setVisibility(transactionsList.isEmpty() ? View.VISIBLE : View.GONE);
+                        transactionsRecyclerView.setVisibility(transactionsList.isEmpty() ? View.GONE : View.VISIBLE);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Failed to load transactions. Try again!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(this, "Network Error. Check your connection!", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userID", userID);
+                params.put("budgetID", budgetID);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 }

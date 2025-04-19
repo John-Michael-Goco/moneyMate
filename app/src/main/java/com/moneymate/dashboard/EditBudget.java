@@ -1,6 +1,10 @@
 package com.moneymate.dashboard;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -21,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.moneymate.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -54,7 +59,9 @@ public class EditBudget extends AppCompatActivity {
             return insets;
         });
 
-        // Get budgetID from intent
+        // Fetch necessary IDs
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "1");
         String budgetID = getIntent().getStringExtra("budgetID");
 
         // Find UI
@@ -81,7 +88,7 @@ public class EditBudget extends AppCompatActivity {
 
         // Handle Update Button
         updateBtn.setOnClickListener(v -> {
-
+            showConfirmationDialog(budgetID, userID);
             updateBtn.setEnabled(false);
             updateBtn.postDelayed(() -> updateBtn.setEnabled(true), 1500);
         });
@@ -89,7 +96,6 @@ public class EditBudget extends AppCompatActivity {
         // ✅ Fetch and display existing budget details
         getBudgetDetails(budgetID);
     }
-
     private void getBudgetDetails(String budget_id) {
         RequestQueue requestQueue = Volley.newRequestQueue(EditBudget.this);
 
@@ -140,7 +146,6 @@ public class EditBudget extends AppCompatActivity {
 
         requestQueue.add(stringRequest);
     }
-
     private void updateCategoryLogo(String category) {
         Map<String, Integer> categoryLogos = new HashMap<>();
         categoryLogos.put("Bills & Utilities", R.drawable.bills_ic);
@@ -155,5 +160,83 @@ public class EditBudget extends AppCompatActivity {
 
         // Update the ImageView
         categoryLogo.setImageResource(categoryLogos.getOrDefault(category, R.drawable.logo));
+    }
+    private void showConfirmationDialog(String budgetID, String userID) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Update")
+                .setMessage("Are you sure you want to update this budget?")
+                .setPositiveButton("Yes", (dialog, which) -> updateBudget(budgetID, userID))
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+    private void updateBudget(String budgetID, String userID) {
+
+        // Get input values
+        String budgetNameVal = budgetNameInput.getText().toString().trim();
+        String amountVal = amountInput.getText().toString().trim();
+        String categoryVal = autoCompleteTextViewCategory.getText().toString().trim();
+
+        // Validate input fields
+        if (budgetNameVal.isEmpty() || amountVal.isEmpty() || categoryVal.isEmpty()) {
+            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate Amount
+        try {
+            double amount = Double.parseDouble(amountVal);
+            if (amount <= 0) {
+                Toast.makeText(EditBudget.this, "Enter a valid positive amount.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(EditBudget.this, "Amount must be a number.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Create the request to create the transaction
+        StringRequest request = new StringRequest(Request.Method.POST, updateBudgetURL,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        String status = jsonResponse.getString("status");
+                        String message = jsonResponse.getString("message");
+
+                        if ("success".equals(status)) {
+                            Toast.makeText(EditBudget.this, "Budget Updated Successfully!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditBudget.this, ViewBudget.class);
+                            intent.putExtra("budgetID", budgetID);
+                            startActivity(intent);
+                            finish();
+                        } else if ("exists".equals(status)) {
+                            Toast.makeText(EditBudget.this, "Already have a budget with " + categoryVal + ".", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditBudget.this, message, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        Log.e("BudgetError", "JSON Parsing Error: " + e.getMessage());
+                        Toast.makeText(EditBudget.this, "Parsing Error. Try again later.", Toast.LENGTH_LONG).show();
+                    }
+                },
+                error -> {
+                    Log.e("VolleyError", "Request Error: " + error.toString());
+                    Toast.makeText(EditBudget.this, "Request Error. Check your connection.", Toast.LENGTH_LONG).show();
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("userID", userID);
+                params.put("budgetID", budgetID);
+                params.put("budget_name", budgetNameVal);
+                params.put("amount", amountVal);
+                params.put("category", categoryVal);
+                return params;
+            }
+        };
+
+        // Add the request to the Volley queue
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
 }
