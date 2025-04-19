@@ -45,5 +45,16 @@ public class BudgetFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             tab.setText(position == 0 ? "Budget" : "Goal");
         }).attach();
+
+        // 👇 Check if there's an argument and switch to the right tab
+        String tabToOpen = getArguments() != null ? getArguments().getString("tabToOpen") : null;
+
+        if (tabToOpen != null) {
+            if (tabToOpen.equalsIgnoreCase("Goals")) {
+                viewPager.setCurrentItem(1, false);
+            } else {
+                viewPager.setCurrentItem(0, false);
+            }
+        }
     }
 }

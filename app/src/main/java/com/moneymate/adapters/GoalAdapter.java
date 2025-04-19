@@ -1,61 +1,117 @@
 package com.moneymate.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moneymate.R;
-import com.moneymate.models.Goal;
+import com.moneymate.dashboard.ViewBudget;
+import com.moneymate.models.GoalModel;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder> {
 
-    private List<Goal> goalList;
-    private OnGoalClickListener listener;
+    private List<GoalModel> goalsList;
+    private Context context;
 
-    public GoalAdapter(List<Goal> goalList, OnGoalClickListener listener) {
-        this.goalList = goalList;
-        this.listener = listener;
+    public GoalAdapter(Context context, List<GoalModel> goalsList) {
+        this.context = context;
+        this.goalsList = goalsList;
     }
 
     @NonNull
     @Override
-    public GoalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GoalAdapter.GoalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.goal_item, parent, false);
-        return new GoalViewHolder(view);
+        return new GoalAdapter.GoalViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GoalViewHolder holder, int position) {
-        Goal goal = goalList.get(position);
-        holder.goalTitle.setText(goal.getTitle());
+    public void onBindViewHolder(@NonNull GoalAdapter.GoalViewHolder holder, int position) {
+        GoalModel goal = goalsList.get(position);
 
-        holder.goButton.setOnClickListener(v -> listener.onGoalClick(goal));
+        holder.goalTitle.setText(goal.getGoalName());
+
+        // Format and compare date
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM d yyyy");
+
+            // Parse the goal date
+            String goalDateStr = goal.getGoalDate();
+            java.util.Date goalDate = inputFormat.parse(goalDateStr);
+            String formattedDate = outputFormat.format(goalDate);
+
+            // Set formatted date
+            holder.goalDate.setText(formattedDate);
+
+            // Compare with today
+            if ("Ongoing".equals(goal.getGoalCompletion())) {
+                java.util.Date today = new java.util.Date();
+                if (goalDate.before(today)) {
+                    // If the goal date has passed, set the text color to red
+                    holder.goalDate.setTextColor(context.getResources().getColor(R.color.red, null));
+                } else {
+                    holder.goalDate.setTextColor(context.getResources().getColor(R.color.cerulean, null));
+                }
+            } else {
+                holder.goalDate.setTextColor(context.getResources().getColor(R.color.green, null));
+            }
+        } catch (Exception e) {
+            holder.goalDate.setText(goal.getGoalDate());
+            e.printStackTrace();
+        }
+
+        // Set progress bar
+        double accountAmount = goal.getAccountAmount();
+        double goalAmount = goal.getGoalAmount();
+        int progress = goalAmount == 0 ? 0 : (int) ((accountAmount / goalAmount) * 100);
+        if (progress > 100) progress = 100;
+
+        holder.progressBar.setProgress(progress);
+        holder.progressText.setText("₱" + accountAmount + " of ₱" + goalAmount);
+
+        // Change color based on budget usage
+        if (accountAmount > goalAmount) {
+            holder.progressBar.setProgressTintList(context.getResources().getColorStateList(R.color.green, null));
+        } else {
+            holder.progressBar.setProgressTintList(context.getResources().getColorStateList(R.color.cerulean, null));
+        }
+
+        // Set click action on the arrow button
+        holder.goalBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ViewBudget.class);
+            intent.putExtra("goalID", goal.getGoalID());
+            context.startActivity(intent);
+        });
     }
-
     @Override
     public int getItemCount() {
-        return goalList.size();
+        return goalsList.size();
     }
 
     public static class GoalViewHolder extends RecyclerView.ViewHolder {
-        TextView goalTitle;
-        ImageView goButton;
+        TextView goalTitle, goalDate, progressText;
+        ProgressBar progressBar;
+        ImageButton goalBtn;
 
         public GoalViewHolder(@NonNull View itemView) {
             super(itemView);
             goalTitle = itemView.findViewById(R.id.goalTitle);
-            goButton = itemView.findViewById(R.id.goalLogo);
+            goalDate = itemView.findViewById(R.id.goalDate);
+            progressBar = itemView.findViewById(R.id.progressBar);
+            progressText = itemView.findViewById(R.id.progressText);
+            goalBtn = itemView.findViewById(R.id.goalBtn);
         }
-    }
-
-    public interface OnGoalClickListener {
-        void onGoalClick(Goal goal);
     }
 }

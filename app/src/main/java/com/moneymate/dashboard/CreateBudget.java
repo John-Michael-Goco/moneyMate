@@ -39,7 +39,7 @@ import java.util.Map;
 public class CreateBudget extends AppCompatActivity {
     private String createBudgetURL = "http://10.0.2.2/moneymateBackend/createBudget.php";
     private String[] expenseCategory = {"Bills & Utilities", "Drink & Dine", "Education", "Entertainment",
-            "Food & Grocery", "Personal Care", "Pet Care", "Shopping", "Others"};
+            "Food & Grocery", "Personal Care", "Pet Care", "Shopping"};
     private ImageView categoryLogo;
     private Button backBtn, createBudgetBtn;
     private TextInputEditText budgetNameInput, amountInput;
@@ -101,7 +101,6 @@ public class CreateBudget extends AppCompatActivity {
         categoryLogos.put("Personal Care", R.drawable.personal_care_ic);
         categoryLogos.put("Pet Care", R.drawable.pet_care_ic);
         categoryLogos.put("Shopping", R.drawable.shopping_ic);
-        categoryLogos.put("Others", R.drawable.others_ic);
 
         // Update the ImageView if the category exists in the map
         if (categoryLogos.containsKey(category)) {

@@ -184,10 +184,27 @@ public class Dashboard extends AppCompatActivity {
                     .commit();
         } else if ("Budget".equals(fragmentToOpen)) {
             bottomNavigationView.setSelectedItemId(R.id.menuBudget);
+            Bundle bundle = new Bundle();
+            bundle.putString("tabToOpen", "Budget");
+
+            BudgetFragment budgetFragment = new BudgetFragment();
+            budgetFragment.setArguments(bundle);
+
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new BudgetFragment())
+                    .replace(R.id.fragmentContainer, budgetFragment)
                     .commit();
-        } else if ("Bills".equals(fragmentToOpen)) {
+        } else if("Goals".equals(fragmentToOpen)){
+            bottomNavigationView.setSelectedItemId(R.id.menuBudget);
+            Bundle bundle = new Bundle();
+            bundle.putString("tabToOpen", "Goals");
+
+            BudgetFragment budgetFragment = new BudgetFragment();
+            budgetFragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, budgetFragment)
+                    .commit();
+        }else if ("Bills".equals(fragmentToOpen)) {
             bottomNavigationView.setSelectedItemId(R.id.menuBills);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new BillsFragment())

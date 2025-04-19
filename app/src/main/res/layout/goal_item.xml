@@ -1,45 +1,91 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="25dp"
-    app:cardElevation="3dp"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:orientation="vertical">
 
+    <!-- Main Row Layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="10dp"
-        android:background="#204080FF ">
+        android:gravity="center_vertical">
 
+        <!-- Title and Amount Text -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <!-- Goal Logo -->
-            <ImageView
-                android:id="@+id/goalLogo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/arrow_right"
-                android:layout_marginEnd="10dp"/>
-
-            <!-- Goals Text -->
-            <TextView
-                android:id="@+id/goalTitle"
-                android:layout_width="wrap_content"
+            <!-- Title and Date Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Goal Title"
-                android:textSize="16sp"
-                android:textColor="@color/grey"
-                android:textStyle="bold"
-                android:gravity="center_vertical"/>
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/goalTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/goalDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apr 16 2025"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/poppins_semibold"/>
+            </LinearLayout>
+
+            <!-- Progress with Text Overlay -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:progressDrawable="@drawable/progress_bar_design"
+                    android:max="100" />
+
+                <TextView
+                    android:id="@+id/progressText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="750 of 1000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/grey" />
+            </FrameLayout>
         </LinearLayout>
 
+        <!-- Image Button -->
+        <ImageButton
+            android:id="@+id/goalBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/arrow_right"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="Action Button"/>
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    <!-- Bottom Border -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+</LinearLayout>

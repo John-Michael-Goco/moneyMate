@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -23,12 +21,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.moneymate.R;
-import com.moneymate.adapters.GoalAdapter;
-import com.moneymate.models.Goal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -78,24 +73,6 @@ public class HomeFragment extends Fragment {
         setupPieChart(expensesChart, "Expenses", new float[]{40f, 25f, 15f, 15f, 5f},
                 new String[]{"Rent", "Food", "Entertainment", "Transport", "Others"},
                 new String[]{"#FF4081", "#3F51B5", "#FFA000", "#4CAF50", "#00BCD4"});
-
-        // Initialize RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.goalsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Sample data for goals
-        List<Goal> goalList = new ArrayList<>();
-        goalList.add(new Goal("Save for a vacation"));
-        goalList.add(new Goal("Buy a new laptop"));
-        goalList.add(new Goal("Pay off credit card"));
-        goalList.add(new Goal("Emergency fund"));
-
-        // Set up adapter
-        GoalAdapter adapter = new GoalAdapter(goalList, goal -> {
-            // Handle goal click
-        });
-
-        recyclerView.setAdapter(adapter);
 
         // Get reference to BottomNavigationView
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
