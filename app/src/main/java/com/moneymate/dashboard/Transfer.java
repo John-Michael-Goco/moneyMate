@@ -219,7 +219,7 @@ public class Transfer extends AppCompatActivity {
 
         // Validate input fields
         if (transferNameVal.isEmpty() || amountVal.isEmpty() || accountFromVal.isEmpty() ||
-                accountToVal.isEmpty() || dateVal.isEmpty() || noteVal.isEmpty()) {
+                accountToVal.isEmpty() || dateVal.isEmpty()) {
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
             return;
         }

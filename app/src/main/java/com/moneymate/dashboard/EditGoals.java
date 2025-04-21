@@ -2,6 +2,7 @@ package com.moneymate.dashboard;
 
 import static android.view.View.INVISIBLE;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -98,7 +99,7 @@ public class EditGoals extends AppCompatActivity {
 
         // Create Goal
         updateGoalBtn.setOnClickListener(v -> {
-            updateGoal(goalID, userID);
+            showConfirmationDialog(goalID, userID);
             updateGoalBtn.setEnabled(false);
             updateGoalBtn.postDelayed(() -> updateGoalBtn.setEnabled(true), 1500);
         });
@@ -228,6 +229,14 @@ public class EditGoals extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
+    }
+    private void showConfirmationDialog(String goalID, String userID) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Update")
+                .setMessage("Are you sure you want to update this goal?")
+                .setPositiveButton("Yes", (dialog, which) -> updateGoal(goalID, userID))
+                .setNegativeButton("Cancel", null)
+                .show();
     }
     private void updateGoal(String goalID, String userID) {
 

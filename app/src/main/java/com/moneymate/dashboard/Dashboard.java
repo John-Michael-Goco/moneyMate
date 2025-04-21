@@ -40,12 +40,10 @@ public class Dashboard extends AppCompatActivity {
     private Animation rotateCounterClockWise;
 
     // Main FAB and other views
-    private FloatingActionButton addBillFab;
     private FloatingActionButton transferFab;
     private FloatingActionButton addIncomeFab;
     private FloatingActionButton addExpenseFab;
 
-    private View addBillTv;
     private View transferTv;
     private View addIncomeTv;
     private View addExpenseTv;
@@ -76,12 +74,10 @@ public class Dashboard extends AppCompatActivity {
         rotateCounterClockWise = AnimationUtils.loadAnimation(this, R.anim.rotate_counter_clock_wise);
 
         // Initialize action FABs and labels
-        addBillFab = findViewById(R.id.addBillFab);
         transferFab = findViewById(R.id.transferFab);
         addIncomeFab = findViewById(R.id.addIncomeFab);
         addExpenseFab = findViewById(R.id.addExpenseFab);
 
-        addBillTv = findViewById(R.id.addBillTv);
         transferTv = findViewById(R.id.transferTv);
         addIncomeTv = findViewById(R.id.addIncomeTv);
         addExpenseTv = findViewById(R.id.addExpenseTv);
@@ -126,9 +122,6 @@ public class Dashboard extends AppCompatActivity {
                 if (id == R.id.menuHome) {
                     fragmentSelected = new HomeFragment();
                     toggleFabVisibility(true);
-                } else if (id == R.id.menuBills) {
-                    fragmentSelected = new BillsFragment();
-                    toggleFabVisibility(true);
                 } else if (id == R.id.menuTransactions) {
                     fragmentSelected = new TransactionFragment();
                     toggleFabVisibility(true);
@@ -145,34 +138,6 @@ public class Dashboard extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, fragmentSelected).commit();
                 }
                 return true;
-            }
-        });
-
-        // Load the HomeFragment by default and show FAB
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
-            toggleFabVisibility(true);
-        }
-
-        // Toggle FAB menu
-        floatingButton.setOnClickListener(v -> {
-            isExpanded = !isExpanded;
-
-            // Animation for Main FAB
-            floatingButton.startAnimation(isExpanded ? rotateClockWise : rotateCounterClockWise);
-
-            if (isExpanded) {
-                // Show action buttons and labels with animation
-                showFab(addBillFab, addBillTv);
-                showFab(transferFab, transferTv);
-                showFab(addIncomeFab, addIncomeTv);
-                showFab(addExpenseFab, addExpenseTv);
-            } else {
-                // Hide action buttons and labels with animation
-                hideFab(addBillFab, addBillTv);
-                hideFab(transferFab, transferTv);
-                hideFab(addIncomeFab, addIncomeTv);
-                hideFab(addExpenseFab, addExpenseTv);
             }
         });
 
@@ -204,17 +169,35 @@ public class Dashboard extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, budgetFragment)
                     .commit();
-        }else if ("Bills".equals(fragmentToOpen)) {
-            bottomNavigationView.setSelectedItemId(R.id.menuBills);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new BillsFragment())
-                    .commit();
-        } else if ("Account".equals(fragmentToOpen)) {
+        }else if ("Account".equals(fragmentToOpen)) {
             bottomNavigationView.setSelectedItemId(R.id.menuAccount);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new AccountFragment())
                     .commit();
+        } else if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+            toggleFabVisibility(true);
         }
+
+        // Toggle FAB menu
+        floatingButton.setOnClickListener(v -> {
+            isExpanded = !isExpanded;
+
+            // Animation for Main FAB
+            floatingButton.startAnimation(isExpanded ? rotateClockWise : rotateCounterClockWise);
+
+            if (isExpanded) {
+                // Show action buttons and labels with animation
+                showFab(transferFab, transferTv);
+                showFab(addIncomeFab, addIncomeTv);
+                showFab(addExpenseFab, addExpenseTv);
+            } else {
+                // Hide action buttons and labels with animation
+                hideFab(transferFab, transferTv);
+                hideFab(addIncomeFab, addIncomeTv);
+                hideFab(addExpenseFab, addExpenseTv);
+            }
+        });
     }
 
     // Function to show FAB and label
@@ -249,7 +232,6 @@ public class Dashboard extends AppCompatActivity {
             // Reset FAB menu
             if (isExpanded) {
                 isExpanded = false;
-                hideFab(addBillFab, addBillTv);
                 hideFab(transferFab, transferTv);
                 hideFab(addIncomeFab, addIncomeTv);
                 hideFab(addExpenseFab, addExpenseTv);

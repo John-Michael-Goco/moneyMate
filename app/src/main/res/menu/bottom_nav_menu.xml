@@ -4,9 +4,6 @@
     <item android:title="Home"
         android:icon="@drawable/home_selector"
         android:id="@+id/menuHome" />
-    <item android:title="Bills"
-        android:icon="@drawable/transaction_selector"
-        android:id="@+id/menuBills"/>
     <item android:title="Transactions"
         android:icon="@drawable/report_selector"
         android:id="@+id/menuTransactions"/>

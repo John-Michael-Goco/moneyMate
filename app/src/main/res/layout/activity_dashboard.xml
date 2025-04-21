@@ -39,36 +39,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Add Bill FAB -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addBillFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add_bill"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/white"
-            android:tint="#C2B280"
-            android:visibility="invisible"
-            app:tint="#C2B280"
-            app:maxImageSize="35dp"
-            app:layout_constraintBottom_toTopOf="@id/floatingButton"
-            app:layout_constraintEnd_toEndOf="@id/floatingButton" />
-
-        <TextView
-            android:id="@+id/addBillTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Bill"
-            android:textStyle="bold"
-            android:elevation="5dp"
-            android:background="@drawable/fab_bg"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="6dp"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/addBillFab"
-            app:layout_constraintTop_toTopOf="@id/addBillFab"
-            app:layout_constraintBottom_toBottomOf="@id/addBillFab" />
-
         <!-- Transfer FAB -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/transferFab"
@@ -80,7 +50,7 @@
             android:tint="@color/cerulean"
             android:visibility="invisible"
             app:tint="@color/cerulean"
-            app:layout_constraintBottom_toTopOf="@id/addBillFab"
+            app:layout_constraintBottom_toTopOf="@id/floatingButton"
             app:layout_constraintEnd_toEndOf="@id/floatingButton" />
 
         <TextView

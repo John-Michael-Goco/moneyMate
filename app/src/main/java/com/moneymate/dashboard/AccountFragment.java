@@ -3,27 +3,21 @@ package com.moneymate.dashboard;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -33,14 +27,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import com.moneymate.adapters.CashAdapter;
 import com.moneymate.auth.Login;
-import com.moneymate.auth.Register;
 import com.moneymate.models.CashModel;
 import com.moneymate.adapters.InvestmentAdapter;
 import com.moneymate.models.InvestmentModel;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,109 +54,82 @@ public class AccountFragment extends Fragment {
     private ImageView createAccountBtn;
     private String userID;
 
-    public AccountFragment() {
-        // Required empty public constructor
+    private static final Map<String, Integer> logoMap = new HashMap<>();
+    static {
+        logoMap.put("2131230854", R.drawable.bank_logo);
+        logoMap.put("2131230869", R.drawable.cash_logo);
+        logoMap.put("2131231011", R.drawable.wallet_logo);
+        logoMap.put("2131231002", R.drawable.savings_logo);
+        logoMap.put("2131230999", R.drawable.retirement_logo);
+        logoMap.put("2131230916", R.drawable.investment_logo);
+        logoMap.put("2131230856", R.drawable.bitcoin_logo);
     }
+
+    public AccountFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Retrieve user data
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
         userID = sharedPreferences.getString("userID", " ");
 
-        // Initialize Cash Accounts RecyclerView
         cashRecyclerView = view.findViewById(R.id.cashRecyclerView);
         cashRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         cashAccountList = new ArrayList<>();
         cashAdapter = new CashAdapter(requireContext(), cashAccountList);
         cashRecyclerView.setAdapter(cashAdapter);
 
-        // Initialize Investment Accounts RecyclerView
         investmentRecyclerView = view.findViewById(R.id.investmentRecyclerView);
         investmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         investmentAccountList = new ArrayList<>();
         investmentAdapter = new InvestmentAdapter(requireContext(), investmentAccountList);
         investmentRecyclerView.setAdapter(investmentAdapter);
 
-        // For Create New Account
+        Executor executor = Executors.newFixedThreadPool(3);
+        executor.execute(() -> fetchCashAccounts(userID));
+        executor.execute(() -> fetchInvestmentAccounts(userID));
+        executor.execute(() -> setFetchNetworth(userID));
+
         createAccountBtn = view.findViewById(R.id.addAccountBtn);
-        createAccountBtn.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), SelectAccountType.class);
-                startActivity(intent);
-            }
-        });
+        createAccountBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), SelectAccountType.class)));
 
         cardUserProfile = view.findViewById(R.id.cardUserProfile);
-        cardUserProfile.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), UserDetails.class);
-                startActivity(intent);
-            }
-        });
+        cardUserProfile.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserDetails.class)));
 
         cardCategories = view.findViewById(R.id.cardCategories);
-        cardCategories.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), CategoryViewPager.class);
-                startActivity(intent);
-            }
-        });
+        cardCategories.setOnClickListener(v -> startActivity(new Intent(getActivity(), CategoryViewPager.class)));
 
-        // Logout confirmation before signing out
         cardSignOut = view.findViewById(R.id.cardSignOut);
         cardSignOut.setOnClickListener(v -> showLogoutConfirmationDialog());
 
-        // User account deletion confirmation
         cardDeleteAccount = view.findViewById(R.id.cardDeleteAccount);
         cardDeleteAccount.setOnClickListener(v -> showDeleteUserAccountDialog(userID));
-
-        // Delay Fetching Account Datas
-        if (!userID.isEmpty()) {
-            new android.os.Handler().postDelayed(() -> {
-                fetchCashAccounts(userID);
-                fetchInvestmentAccounts(userID);
-                setFetchNetworth(userID);
-            }, 250);
-        } else {
-            Toast.makeText(requireContext(), "User ID is invalid!", Toast.LENGTH_SHORT).show();
-        }
     }
+
     private void setFetchNetworth(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchNetworthURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
-
                         if (jsonResponse.getString("status").equals("success")) {
-                            // Directly get the networth value (it's not an array)
                             String networth = jsonResponse.getString("networth");
-
-                            // Update UI with net worth
-                            TextView networthTextView = requireView().findViewById(R.id.networthText);
-                            networthTextView.setText(formatBalance(networth));
-                        } else {
-                            Toast.makeText(requireContext(), "Failed to fetch net worth", Toast.LENGTH_SHORT).show();
+                            requireActivity().runOnUiThread(() -> {
+                                TextView networthTextView = requireView().findViewById(R.id.networthText);
+                                networthTextView.setText(formatBalance(networth));
+                            });
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(requireContext(), "Error parsing data", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Network Error. Check your connection!", Toast.LENGTH_SHORT).show();
-                }) {
+                error -> error.printStackTrace()) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -171,50 +137,43 @@ public class AccountFragment extends Fragment {
                 return params;
             }
         };
-
         requestQueue.add(stringRequest);
     }
+
     private void fetchCashAccounts(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchCashAccountsURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray accountsArray = jsonResponse.getJSONArray("accounts");
-                        cashAccountList.clear();
+                        List<CashModel> tempList = new ArrayList<>();
 
                         for (int i = 0; i < accountsArray.length(); i++) {
                             JSONObject accountObject = accountsArray.getJSONObject(i);
-                            String accountID = accountObject.getString("accountID");
-                            String account_type = accountObject.getString("account_type");
-                            String accountLogoString = accountObject.getString("account_logo");
-                            String account_name = accountObject.getString("account_name");
-                            String account_number = accountObject.getString("account_number");
-                            String currency = accountObject.getString("currency");
-                            String balance = accountObject.getString("balance");
-
-                            // Convert the string logo ID to an integer resource ID
-                            int accountLogoResID = getResources().getIdentifier(accountLogoString, "drawable", requireContext().getPackageName());
-
-                            cashAccountList.add(new CashModel(accountID, account_type, accountLogoResID, account_name, account_number, currency, balance));
+                            int logoResID = logoMap.getOrDefault(accountObject.getString("account_logo"), R.drawable.logo);
+                            tempList.add(new CashModel(
+                                    accountObject.getString("accountID"),
+                                    accountObject.getString("account_type"),
+                                    logoResID,
+                                    accountObject.getString("account_name"),
+                                    accountObject.getString("account_number"),
+                                    accountObject.getString("currency"),
+                                    accountObject.getString("balance")
+                            ));
                         }
-                        cashAdapter.notifyDataSetChanged();
 
-                        // Show/hide "No accounts yet" message
-                        TextView noCashAccountsText = requireView().findViewById(R.id.noCashAccountsText);
-                        noCashAccountsText.setVisibility(cashAccountList.isEmpty() ? View.VISIBLE : View.GONE);
-                        cashRecyclerView.setVisibility(cashAccountList.isEmpty() ? View.GONE : View.VISIBLE);
-
+                        requireActivity().runOnUiThread(() -> {
+                            cashAccountList.clear();
+                            cashAccountList.addAll(tempList);
+                            cashAdapter.notifyDataSetChanged();
+                            updateCashUI();
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(requireContext(), "Failed to load accounts. Try again!", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Network Error. Check your connection!", Toast.LENGTH_SHORT).show();
-                }) {
+                error -> error.printStackTrace()) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -222,51 +181,43 @@ public class AccountFragment extends Fragment {
                 return params;
             }
         };
-
         requestQueue.add(stringRequest);
     }
+
     private void fetchInvestmentAccounts(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, fetchInvestmentAccountsURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray accountsArray = jsonResponse.getJSONArray("accounts");
-                        investmentAccountList.clear();
+                        List<InvestmentModel> tempList = new ArrayList<>();
 
                         for (int i = 0; i < accountsArray.length(); i++) {
                             JSONObject accountObject = accountsArray.getJSONObject(i);
-                            String accountID = accountObject.getString("accountID");
-                            String account_type = accountObject.getString("account_type");
-                            String accountLogoString = accountObject.getString("account_logo");
-                            String account_name = accountObject.getString("account_name");
-                            String account_number = accountObject.getString("account_number");
-                            String currency = accountObject.getString("currency");
-                            String balance = accountObject.getString("balance");
-
-                            // Convert the string logo ID to an integer resource ID
-                            int accountLogoResID = getResources().getIdentifier(accountLogoString, "drawable", requireContext().getPackageName());
-
-                            investmentAccountList.add(new InvestmentModel(accountID, account_type, accountLogoResID, account_name, account_number, currency, balance));
+                            int logoResID = logoMap.getOrDefault(accountObject.getString("account_logo"), R.drawable.logo);
+                            tempList.add(new InvestmentModel(
+                                    accountObject.getString("accountID"),
+                                    accountObject.getString("account_type"),
+                                    logoResID,
+                                    accountObject.getString("account_name"),
+                                    accountObject.getString("account_number"),
+                                    accountObject.getString("currency"),
+                                    accountObject.getString("balance")
+                            ));
                         }
 
-                        investmentAdapter.notifyDataSetChanged();
-
-                        // Show/hide "No accounts yet" message
-                        TextView noInvestmentAccountsText = requireView().findViewById(R.id.noInvestmentAccountsText);
-                        noInvestmentAccountsText.setVisibility(investmentAccountList.isEmpty() ? View.VISIBLE : View.GONE);
-                        investmentRecyclerView.setVisibility(investmentAccountList.isEmpty() ? View.GONE : View.VISIBLE);
-
+                        requireActivity().runOnUiThread(() -> {
+                            investmentAccountList.clear();
+                            investmentAccountList.addAll(tempList);
+                            investmentAdapter.notifyDataSetChanged();
+                            updateInvestmentUI();
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(requireContext(), "Failed to load accounts. Try again!", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> {
-                    error.printStackTrace();
-                    Toast.makeText(requireContext(), "Network Error. Check your connection!", Toast.LENGTH_SHORT).show();
-                }) {
+                error -> error.printStackTrace()) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -274,9 +225,21 @@ public class AccountFragment extends Fragment {
                 return params;
             }
         };
-
         requestQueue.add(stringRequest);
     }
+
+    private void updateCashUI() {
+        TextView noCashText = requireView().findViewById(R.id.noCashAccountsText);
+        noCashText.setVisibility(cashAccountList.isEmpty() ? View.VISIBLE : View.GONE);
+        cashRecyclerView.setVisibility(cashAccountList.isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
+    private void updateInvestmentUI() {
+        TextView noInvestmentText = requireView().findViewById(R.id.noInvestmentAccountsText);
+        noInvestmentText.setVisibility(investmentAccountList.isEmpty() ? View.VISIBLE : View.GONE);
+        investmentRecyclerView.setVisibility(investmentAccountList.isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
     private void showLogoutConfirmationDialog() {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Confirm Logout")
@@ -285,6 +248,7 @@ public class AccountFragment extends Fragment {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
     private void showDeleteUserAccountDialog(String userID) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("User Account Deletion")
@@ -293,40 +257,26 @@ public class AccountFragment extends Fragment {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
     private void deleteUserAccount(String userID) {
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-
         StringRequest request = new StringRequest(Request.Method.POST, deleteUserAccountURL,
                 response -> {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         if (jsonResponse.getString("status").equals("success")) {
-                            Toast.makeText(requireContext(), "User account deleted successfully!", Toast.LENGTH_SHORT).show();
-
-                            // Clear user data
                             SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.clear();
-                            editor.apply();
-
-                            // Navigate to login page
+                            sharedPreferences.edit().clear().apply();
                             Intent intent = new Intent(requireActivity(), Login.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             requireActivity().finish();
-
-                        } else {
-                            Toast.makeText(requireContext(), "Failed to delete account.", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Log.e("JSONError", "Parsing error: " + e.getMessage());
-                        Toast.makeText(requireContext(), "Error parsing response.", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> {
-                    Log.e("VolleyError", "Request error: " + error.toString());
-                    Toast.makeText(requireContext(), "Error deleting user account.", Toast.LENGTH_SHORT).show();
-                }) {
+                error -> Log.e("VolleyError", "Request error: " + error.toString())) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -334,23 +284,17 @@ public class AccountFragment extends Fragment {
                 return params;
             }
         };
-
         requestQueue.add(request);
     }
-    private void logoutUser() {
-        if (getActivity() != null) {
-            // Clear saved user data
-            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.apply();
 
-            // Navigate to Login Page and clear activity stack
-            Intent intent = new Intent(requireActivity(), Login.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+    private void logoutUser() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", requireContext().MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+        Intent intent = new Intent(requireActivity(), Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
+
     private String formatBalance(String balance) {
         try {
             double amount = Double.parseDouble(balance);

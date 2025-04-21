@@ -106,12 +106,13 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/networthText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
                                 android:text="P100,000"
                                 android:textColor="@color/grey"
-                                android:textSize="22sp"
+                                android:textSize="20sp"
                                 android:textStyle="bold"
                                 android:layout_marginBottom="10dp"/>
 
@@ -132,6 +133,7 @@
                             android:gravity="center">
 
                             <TextView
+                                android:id="@+id/accountsText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins"
@@ -174,7 +176,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Bills"
+                            android:text="Incomes"
                             android:textSize="16sp"
                             android:textColor="@color/grey"
                             android:textStyle="bold"
@@ -184,7 +186,7 @@
 
                         <!-- Image Button-->
                         <ImageView
-                            android:id="@+id/goBills"
+                            android:id="@+id/goIncome"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/arrow_right"
@@ -196,7 +198,7 @@
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/donut_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="180dp"
                         android:layout_marginTop="5dp" />
 
                 </LinearLayout>
@@ -253,7 +255,7 @@
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/donut_chart_expenses"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="180dp"
                         android:layout_marginTop="5dp"/>
 
                 </LinearLayout>
@@ -308,38 +310,28 @@
                             android:background="?android:attr/selectableItemBackground" />
                     </LinearLayout>
 
-                    <!-- Progress Percentage Overlay -->
-                    <TextView
-                        android:id="@+id/progressPercentage"
+                    <!-- RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/budgetsRV"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="75%"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/grey"/>
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp" />
 
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:progressDrawable="@drawable/progress_bar_design"
-                        android:max="100"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"/>
-
-                    <!-- Progress Text Overlay -->
+                    <!-- No Budget Text -->
                     <TextView
-                        android:id="@+id/progressText"
+                        android:id="@+id/noBudgetText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="750 of 1000"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/grey"
-                        android:layout_centerInParent="true"/>
-
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        android:text="No Budget Yet"
+                        android:textSize="18sp"
+                        android:textColor="@color/eerie_black"
+                        android:visibility="gone"
+                        android:gravity="center" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -391,14 +383,23 @@
                             android:background="?android:attr/selectableItemBackground" />
                     </LinearLayout>
 
+                    <!-- On Going Goals RecyclerView -->
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/goalsRecyclerView"
+                        android:id="@+id/onGoingGoalsRV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"/>
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/noOnGoingGoal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="No Ongoing Goal Yet"
+                        android:textSize="16sp"
+                        android:textColor="@color/eerie_black"
+                        android:gravity="center"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
