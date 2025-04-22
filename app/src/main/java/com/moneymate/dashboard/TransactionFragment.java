@@ -38,11 +38,29 @@ public class TransactionFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
 
+        // Updated to handle 4 tabs
         TransactionsPagerAdapter adapter = new TransactionsPagerAdapter(this);
         viewPager.setAdapter(adapter);
 
+        String[] tabTitles = {"Expenses", "Incomes", "Transfer", "Monthly"};
+
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            tab.setText(position == 0 ? "Daily" : "Monthly");
+            if (position < tabTitles.length) {
+                tab.setText(tabTitles[position]);
+            }
         }).attach();
+
+        // 👇 Check if there's an argument and switch to the right tab
+        String tabToOpen = getArguments() != null ? getArguments().getString("tabToOpen") : null;
+
+        if (tabToOpen != null) {
+            if (tabToOpen.equalsIgnoreCase("Incomes")) {
+                viewPager.setCurrentItem(1, false);
+            } else if (tabToOpen.equalsIgnoreCase("Transfer")) {
+                viewPager.setCurrentItem(2, false);
+            } else {
+                viewPager.setCurrentItem(0, false);
+            }
+        }
     }
 }

@@ -29,21 +29,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DailyTransactionFragment extends Fragment {
+public class TransferFragment extends Fragment {
 
-    private static final String fetchAllTransactionsURL = "http://10.0.2.2/moneymateBackend/fetchAllTransactions.php";
+    private static final String fetchAllTransactionsURL = "http://10.0.2.2/moneymateBackend/fetchAllTransfers.php";
     private RecyclerView transactionsRecyclerView;
     private List<TransactionsModel> transactionsList = new ArrayList<>();
     private TransactionsAdapter transactionsAdapter;
     private View rootView;
 
-    public DailyTransactionFragment() {}
+    public TransferFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_daily_transaction, container, false);
+        rootView = inflater.inflate(R.layout.fragment_transfer, container, false);
 
         transactionsRecyclerView = rootView.findViewById(R.id.transactionsRecyclerView);
         transactionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
